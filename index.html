@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Oracle's Veil | Custom Cat Tarot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --deep-navy: #0b101b;
@@ -30,17 +30,18 @@
             background: radial-gradient(circle at 50% 50%, #16213e 0%, #0b101b 100%);
         }
 
+        /* Navbar Styling from Screenshot */
         .nav-link {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            font-weight: bold;
-            color: rgba(236, 227, 206, 0.6);
+            font-weight: 700;
+            color: rgba(236, 227, 206, 0.7);
             transition: all 0.3s;
         }
-        .nav-link:hover { color: var(--gold-leaf); text-shadow: 0 0 10px var(--gold-leaf); }
+        .nav-link:hover { color: var(--gold-leaf); }
 
-        /* Fixed Tarot Card Flip Logic */
+        /* Tarot Card Animation */
         .tarot-card {
             perspective: 1000px;
             cursor: pointer;
@@ -57,7 +58,6 @@
             transform-style: preserve-3d;
         }
 
-        /* Class applied by JavaScript to trigger flip */
         .tarot-card.flipped .tarot-card-inner {
             transform: rotateY(180deg);
         }
@@ -72,13 +72,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             background: var(--void-black);
             overflow: hidden;
-            pointer-events: none; /* Let parent handle clicks */
+            pointer-events: none;
+            display: flex; flex-direction: column;
         }
 
         .card-back {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             background-image: 
                 radial-gradient(var(--gold-leaf) 1px, transparent 1px),
                 linear-gradient(45deg, rgba(212, 175, 55, 0.05) 25%, transparent 25%);
@@ -92,11 +91,11 @@
             transform: rotateY(180deg);
         }
 
-        /* Sprite Implementation */
-        .card-sprite {
+        .card-image-full {
             width: 100%;
             height: 100%;
-            background-repeat: no-repeat;
+            object-fit: cover;
+            background-color: var(--void-black);
         }
 
         .card-border-inner {
@@ -119,6 +118,39 @@
             font-family: 'Cinzel', serif; font-size: 0.55rem;
             text-transform: uppercase; letter-spacing: 1px;
             color: var(--gold-leaf); background: rgba(0,0,0,0.9);
+            width: 100%; z-index: 2;
+        }
+
+        /* Hero Pill Styling from Screenshot */
+        .hero-pill {
+            background-color: var(--bone-white);
+            color: var(--void-black);
+            padding: 12px 30px;
+            border-radius: 9999px;
+            display: inline-block;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Hero Button Styling from Screenshot */
+        .hero-btn {
+            padding: 15px 40px;
+            border: 1px solid white;
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .hero-btn:hover {
+            background: white;
+            color: var(--void-black);
         }
 
         /* Modals */
@@ -128,13 +160,6 @@
             align-items: center; justify-content: center; padding: 20px;
         }
         .modal.active { display: flex; }
-
-        .brush-stroke {
-            background: var(--bone-white); color: var(--void-black);
-            padding: 5px 25px; border-radius: 50px;
-            display: inline-block; transform: rotate(-1deg);
-            box-shadow: 4px 4px 0 var(--gold-leaf);
-        }
 
         .warning-tag {
             background: rgba(212, 175, 55, 0.05);
@@ -146,46 +171,72 @@
         #detail-list::-webkit-scrollbar { width: 4px; }
         #detail-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
         #detail-list::-webkit-scrollbar-thumb { background: var(--gold-leaf); }
+        
+        .has-image-indicator { color: var(--gold-leaf); font-size: 0.6rem; margin-left: 5px; }
+
+        .artist-seal {
+            border: 1px solid var(--gold-leaf);
+            padding: 3rem 2rem;
+            position: relative;
+            background: rgba(212, 175, 55, 0.03);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .artist-seal::before {
+            content: '✥';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--deep-navy);
+            padding: 0 15px;
+            color: var(--gold-leaf);
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
 
     <div class="stars-container"></div>
 
-    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-transparent backdrop-blur-md border-b border-white/5">
-        <div class="flex items-center gap-3">
-            <span class="text-gold-leaf text-2xl">✨</span>
-            <span class="mystic-font text-xl tracking-widest font-black text-gold-leaf">Cat Prophet</span>
+    <nav class="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-transparent backdrop-blur-sm">
+        <div class="flex items-center gap-2">
+            <span class="text-gold-leaf text-xl">✨</span>
+            <span class="mystic-font text-2xl font-black text-bone-white tracking-widest">CAT PROPHET</span>
         </div>
-        <div class="flex gap-8">
-            <a href="#article" class="nav-link">• Article</a>
-            <a href="#reading" class="nav-link">• Try by yourself</a>
-            <a href="#services" class="nav-link">• Services</a>
-            <a href="#contact" class="nav-link">• Contact</a>
+        <div class="hidden md:flex gap-8">
+            <a href="#article" class="nav-link"> ARCHIVE</a>
+            <a href="#reading" class="nav-link"> DIVINATION</a>
+            <a href="#history" class="nav-link"> HISTORY OF CARD</a>
+            <a href="#contact" class="nav-link"> CONTACT</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="h-screen flex flex-col items-center justify-center text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-black mb-8 uppercase leading-tight max-w-5xl tracking-tighter">
-            Start reading<br><span class="text-gold-leaf">tarot cards on your own</span>
+    <!-- Hero Section Matched to image_472aa4.jpg -->
+    <header class="h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+        <h1 class="text-6xl md:text-8xl font-black mb-6 uppercase tracking-tight text-white leading-[0.9]">
+            UNVEIL THE<br>SECRET WISDOM
         </h1>
-        <div class="mb-12"><span class="brush-stroke font-bold text-xl uppercase tracking-widest">Master Your Destiny with the 78 Feline Keys</span></div>
-        <a href="#reading" class="px-12 py-5 border-2 border-gold-leaf text-gold-leaf uppercase tracking-[0.3em] font-bold hover:bg-gold-leaf hover:text-black transition-all duration-500 rounded-sm">Consult the Oracle</a>
+        <div class="hero-pill">
+            Cat Prophet's Interpretations of the Sacred 78
+        </div>
+        <div>
+            <a href="#reading" class="hero-btn">Consult the Oracle</a>
+        </div>
     </header>
 
     <!-- Archive -->
     <section id="article" class="py-32 px-6 bg-black/40">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-4xl mystic-font text-gold-leaf mb-16 uppercase tracking-widest">The Arcanum Archive</h2>
+            <h2 class="text-4xl mystic-font text-gold-leaf mb-16 uppercase tracking-widest">The Celestial Library</h2>
             <div class="grid md:grid-cols-2 gap-10">
-                <div onclick="showCategory('major')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition">
-                    <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl">Major Arcana</h3>
-                    <p class="text-xs opacity-40">22 Primary Forces of the Universe</p>
+                <div onclick="showCategory('major')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition group">
+                    <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Major Arcana</h3>
+                    <p class="text-xs opacity-40">22 Cosmic Keys</p>
                 </div>
-                <div onclick="showCategory('minor')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition">
-                    <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl">Minor Arcana</h3>
-                    <p class="text-xs opacity-40">56 Daily Trials of the Clowder</p>
+                <div onclick="showCategory('minor')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition group">
+                    <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Minor Arcana</h3>
+                    <p class="text-xs opacity-40">56 Daily Rituals of Life</p>
                 </div>
             </div>
 
@@ -200,18 +251,54 @@
                     <button onclick="filterMinor('Swords')" class="suit-btn px-6 py-3 border border-gold-leaf/20 rounded-full text-xs uppercase tracking-widest hover:bg-gold-leaf/10 transition">Swords</button>
                     <button onclick="filterMinor('Pentacles')" class="suit-btn px-6 py-3 border border-gold-leaf/20 rounded-full text-xs uppercase tracking-widest hover:bg-gold-leaf/10 transition">Pentacles</button>
                 </div>
-                <div id="detail-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto pr-4"></div>
+                <div id="detail-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-[600px] overflow-y-auto pr-4 text-center"></div>
             </div>
         </div>
     </section>
 
-    <!-- Reading Section -->
+    <!-- History Section -->
+    <section id="history" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="text-3xl mystic-font text-gold-leaf mb-12 uppercase tracking-[0.3em]">History of Card</h2>
+            <div class="artist-seal rounded-3xl">
+                <h3 class="serif-font italic text-3xl mb-2 text-gold-leaf">Pamela Colman Smith</h3>
+                <p class="text-[10px] uppercase tracking-[0.4em] opacity-40 mb-6">"Pixie" • 1878 – 1951</p>
+                <div class="h-px w-24 bg-gold-leaf/40 mx-auto mb-8"></div>
+                <div class="text-bone-white/80 leading-relaxed text-lg space-y-4 max-w-3xl mx-auto font-light text-center">
+                    <p>
+                        This collection is an eternal tribute to the visionary work of <span class="text-gold-leaf font-bold">Pamela Colman Smith</span>. 
+                        A British artist, occultist, and author, her artistic contributions redefined the language of the Tarot for the modern age.
+                    </p>
+                    <p>
+                        In 1909, she achieved a breakthrough of unprecedented historical significance: 
+                        she was the <span class="italic">first</span> to illustrate the Minor Arcana with full, scenic human imagery, transforming what were once simple symbols into deep psychological stories.
+                    </p>
+                    <p class="text-sm opacity-60">
+                        Though her original art focused on the human soul, her "Pixie" spirit lives on in every interpretation that follows her structure. 
+                        Cat Prophet celebrates her original archetypes by re-imagining them through this dedicated cat-themed creative lens.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divination Section -->
     <section id="reading" class="py-32 px-6">
         <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-5xl mystic-font text-white mb-6 uppercase tracking-widest">Digital Divination</h2>
-            <p class="text-gold-leaf italic mb-20 text-xl serif-font">Click each card to unveil your Current Vibration.</p>
+            <h2 class="text-5xl mystic-font text-white mb-6 uppercase tracking-widest text-center">Draw Three Cards</h2>
+            <p class="text-gold-leaf italic mb-20 text-xl serif-font text-center">Focus your energy and click to unveil your vibration.</p>
             <div id="deck-container" class="flex flex-wrap justify-center gap-12"></div>
         </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-black/20 text-center">
+        <h2 class="text-3xl mystic-font text-gold-leaf mb-8 uppercase tracking-widest">Connect with Cat Prophet</h2>
+        <div class="h-px w-16 bg-gold-leaf mx-auto mb-8"></div>
+        <p class="text-bone-white/70 mb-10 leading-relaxed max-w-2xl mx-auto">
+            Should you have questions about the cards, require more detail on your forecast, or wish to discuss the artistic journey, please reach out via the link below.
+        </p>
+        <a href="mailto:your-email@example.com" class="px-12 py-5 border border-gold-leaf text-gold-leaf uppercase tracking-[0.3em] font-bold hover:bg-gold-leaf hover:text-black transition shadow-[0_0_15px_rgba(212,175,55,0.1)]">Send Email Inquiry</a>
     </section>
 
     <!-- Spotlight Modal -->
@@ -223,85 +310,150 @@
                 <h2 id="spotlight-title" class="text-4xl md:text-5xl mystic-font text-white uppercase tracking-tighter">Card Name</h2>
                 <div class="h-px w-24 bg-gold-leaf"></div>
                 <p id="spotlight-desc" class="text-xl text-bone-white/70 leading-relaxed serif-font italic"></p>
-                <button onclick="closeSpotlight()" class="px-8 py-3 border border-gold-leaf text-gold-leaf text-xs uppercase tracking-widest hover:bg-gold-leaf hover:text-black transition">Close Vault</button>
+                <button onclick="closeSpotlight()" class="px-8 py-3 border border-gold-leaf text-gold-leaf text-xs uppercase tracking-widest hover:bg-gold-leaf hover:text-black transition">Return to Library</button>
             </div>
         </div>
     </div>
 
-    <!-- Prophecy Result Modal -->
+    <!-- Final Reading Result Modal -->
     <div id="readingModal" class="modal">
         <div class="bg-neutral-900 border border-gold-leaf/30 p-12 max-w-3xl w-full rounded-[40px] relative">
             <div class="text-center">
-                <h3 class="text-4xl mystic-font text-gold-leaf mb-4 tracking-widest">The Oracle Speaks</h3>
+                <h3 class="text-4xl mystic-font text-gold-leaf mb-4 tracking-widest">The Prophecy</h3>
                 <div id="modal-content" class="space-y-6 text-left max-h-[45vh] overflow-y-auto px-4 mt-8"></div>
                 <div class="warning-tag">
                     <p class="font-black mb-2 uppercase tracking-widest text-xs">⚠️ Sacred Warning</p>
-                    <p class="italic text-sm">Destiny requires time to manifest. Please do not consult the cards too often. You should wait at least 3 months before seeking another forecast.</p>
+                    <p class="italic text-sm">Destiny requires time to manifest. Please do not consult the cards again for at least 3 months to allow the current vibrations to take root.</p>
                 </div>
-                <button onclick="closeModal()" class="mt-10 px-12 py-4 bg-gold-leaf text-black font-black uppercase tracking-widest text-xs rounded-full">I Acknowledge Fate</button>
+                <button onclick="closeModal()" class="mt-10 px-12 py-4 bg-gold-leaf text-black font-black uppercase tracking-widest text-xs rounded-full hover:scale-105 transition active:scale-95">I Acknowledge</button>
             </div>
         </div>
     </div>
 
-    <footer class="py-24 text-center border-t border-white/5 opacity-30">
-        <p class="text-gold-leaf uppercase tracking-[0.5em] text-[10px]">&copy; THE ORACLE'S VEIL | CAT PROPHET</p>
+    <footer class="py-24 text-center border-t border-white/5 opacity-40">
+        <p class="text-gold-leaf uppercase tracking-[0.5em] text-[10px] mb-2">&copy; THE ORACLE'S VEIL | CAT PROPHET</p>
+        <p class="text-[9px] tracking-widest opacity-50 uppercase italic">Inspired by the timeless human archetypes of Pamela Colman Smith</p>
     </footer>
 
     <script>
-        // Full Data for all 78 Cards
         const majorArcanaNames = [
-            "0 • The Cat (Fool)", "I • The Wizard", "II • High Priestess", "III • The Empress", 
-            "III • The Empress (Alt)", "IV • The Emperor", "V • The Hierophant", "VI • The Chariot",
-            "VIII • Strength", "VIII • The Hermit (Alt)", "IX • The Hermit", "X • The Wheel",
-            "X • The Wheel (Alt)", "XI • Justice", "XII • The Hanged Cat", "XIII • Death",
-            "XIV • Temperance", "XV • The Devil", "XVI • The Tower", "XVII • The Star",
-            "XVIII • The Moon", "XIX • The Sun", "XX • Judgement", "XXI • The World"
+            "0 • The Cat (Fool)", "I • The Magician", "II • High Priestess", "III • The Empress", 
+            "IV • The Emperor", "V • The Hierophant", "VI • The Lovers", "VII • The Chariot",
+            "VIII • Strength", "IX • The Hermit", "X • Wheel of Fortune", "XI • Justice",
+            "XII • The Hanged Cat", "XIII • Death", "XIV • Temperance", "XV • The Devil",
+            "XVI • The Tower", "XVII • The Star", "XVIII • The Moon", "XIX • The Sun",
+            "XX • Judgement", "XXI • The World"
         ];
 
         const deckData = {
-            major: majorArcanaNames.map((name, i) => ({
-                name: name,
-                type: 'major',
-                row: Math.floor(i / 8),
-                col: i % 8,
-                desc: "A powerful archetype guiding your soul's journey through the cosmos."
-            })),
+            major: majorArcanaNames.map((name, i) => {
+                const base = { name: name, type: 'major', desc: "A powerful archetype guiding your soul's journey through the multiverse." };
+                if (name.includes("Fool")) base.image = "fool.png";
+                if (name.includes("Empress")) base.image = "03 - The Empress.jpg";
+                if (name.includes("Emperor")) base.image = "04 - The Emperor.jpg";
+                if (name.includes("Hierophant")) base.image = "05 - The Hierophant.jpg";
+                if (name.includes("Lovers")) base.image = "06 - The Lovers.jpg";
+                if (name.includes("Chariot")) base.image = "07 - The Chariot.jpg";
+                if (name.includes("Strength")) base.image = "08 - Strength.jpg";
+                if (name.includes("Hermit")) base.image = "09 - The Hermit.jpg";
+                if (name.includes("Wheel")) base.image = "10 - Wheel of Fortune.jpg";
+                if (name.includes("Justice")) base.image = "11 - Justice.jpg";
+                if (name.includes("Hanged")) base.image = "12 - The Hanged Man.jpg";
+                if (name.includes("Death")) base.image = "13 - Death.jpg";
+                if (name.includes("Temperance")) base.image = "14 - Temperance.jpg";
+                if (name.includes("Devil")) base.image = "15 - The Devil.jpg";
+                if (name.includes("Tower")) base.image = "16 - The Tower.jpg";
+                if (name.includes("Moon")) base.image = "18 - The Moon.jpg";
+                if (name.includes("Sun")) base.image = "19 - The Sun.jpg";
+                if (name.includes("Judgement")) base.image = "20 - Judgement.jpg";
+                if (name.includes("World")) base.image = "21 - The World.jpg";
+                return base;
+            }),
             minor: {
-                Wands: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Wands", type: 'minor', suitIndex: 0, cardIndex: i, desc: "A spark of fire and creative feline energy." })),
-                Cups: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Cups", type: 'minor', suitIndex: 1, cardIndex: i, desc: "Emotional flow and deep connection." })),
-                Swords: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Swords", type: 'minor', suitIndex: 2, cardIndex: i, desc: "Clarity of the hunting mind and sharp truth." })),
-                Pentacles: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Pentacles", type: 'minor', suitIndex: 3, cardIndex: i, desc: "Material security and the comfort of the den." }))
+                Wands: Array.from({length: 14}, (_, i) => {
+                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Wands";
+                    const base = { name: name, type: 'minor', suit: 'Wands', desc: "A spark of fire, action, and creative energy." };
+                    if (i === 1) base.image = "23 - Two of Wands.jpg";
+                    if (i === 2) base.image = "24 - Three of Wands.jpg";
+                    if (i === 3) base.image = "25 - Four of Wands.jpg";
+                    if (i === 4) base.image = "26 - Five of Wands.jpg";
+                    if (i === 5) base.image = "27 - Six of Wands.jpg";
+                    if (i === 6) base.image = "28 - Seven of Wands.jpg";
+                    if (i === 7) base.image = "29 - Eight of Wands.jpg";
+                    if (i === 8) base.image = "30 - Nine of Wands.jpg";
+                    if (i === 9) base.image = "31 - Ten of Wands.jpg";
+                    if (i === 10) base.image = "32 - Page of Wands.jpg";
+                    if (i === 11) base.image = "33 - Knight of Wands.jpg";
+                    if (i === 12) base.image = "34 - Queen of Wands.jpg";
+                    if (i === 13) base.image = "35 - King of Wands.jpg";
+                    return base;
+                }),
+                Cups: Array.from({length: 14}, (_, i) => {
+                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Cups";
+                    const base = { name: name, type: 'minor', suit: 'Cups', desc: "Flow of emotion and deep connection." };
+                    if (i === 1) base.image = "37 - Two of Cups.jpg";
+                    if (i === 2) base.image = "38 - Three of Cups.jpg";
+                    if (i === 3) base.image = "39 - Four of Cups.jpg";
+                    if (i === 4) base.image = "40 - Five of Cups.jpg";
+                    if (i === 5) base.image = "41 - Six of Cups.jpg";
+                    if (i === 6) base.image = "42 - Seven of Cups.jpg";
+                    if (i === 7) base.image = "43 - Eight of Cups.jpg";
+                    if (i === 8) base.image = "44 - Nine of Cups.jpg";
+                    if (i === 9) base.image = "45 - Ten of Cups.jpg";
+                    if (i === 10) base.image = "46 - Page of Cups.jpg";
+                    if (i === 11) base.image = "47 - Knight of Cups.jpg";
+                    if (i === 12) base.image = "48 - Queen of Cups.jpg";
+                    if (i === 13) base.image = "49 - King of Cups.jpg";
+                    return base;
+                }),
+                Swords: Array.from({length: 14}, (_, i) => {
+                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Swords";
+                    const base = { name: name, type: 'minor', suit: 'Swords', desc: "Clarity of the mind, intellect, and sharp truth." };
+                    if (i === 0) base.image = "50 - Ace of Swords.jpg";
+                    if (i === 1) base.image = "51 - Two of Swords.jpg";
+                    if (i === 2) base.image = "52 - Three of Swords.jpg";
+                    if (i === 3) base.image = "53 - Four of Swords.jpg";
+                    if (i === 4) base.image = "54 - Five of Swords.jpg";
+                    if (i === 5) base.image = "55 - Six of Swords.jpg";
+                    if (i === 6) base.image = "56 - Seven of Swords.jpg";
+                    if (i === 7) base.image = "57 - Eight of Swords.jpg";
+                    if (i === 8) base.image = "58 - Nine of Swords.jpg";
+                    if (i === 9) base.image = "59 - Ten of Swords.jpg";
+                    if (i === 10) base.image = "60 - Page of Swords.jpg";
+                    if (i === 11) base.image = "61 - Knight of Swords.jpg";
+                    if (i === 12) base.image = "62 - Queen of Swords.jpg";
+                    if (i === 13) base.image = "63 - King of Swords.jpg";
+                    return base;
+                }),
+                Pentacles: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Pentacles", type: 'minor', suit: 'Pentacles', desc: "Material security and comfort." }))
             }
         };
 
         function getCardHTML(card) {
-            let style = "";
-            if (card.type === 'major') {
-                // major_sheet.jpg (8 cols x 3 rows)
-                style = `background-image: url('major_sheet.jpg'); background-size: 800% 300%; background-position: ${(card.col / 7) * 100}% ${(card.row / 2) * 100}%;`;
-            } else {
-                // minor_sheet.jpg (composite grid)
-                // Quadrants: Wands(0,0), Cups(1,0), Swords(0,1), Pentacles(1,1)
-                const quadX = card.suitIndex % 2;
-                const quadY = Math.floor(card.suitIndex / 2);
-                const rowInQuad = Math.floor(card.cardIndex / 5);
-                const colInQuad = card.cardIndex % 5;
-                
-                // Adjusting offsets for the 2x2 master sheet
-                style = `background-image: url('minor_sheet.jpg'); background-size: 1000% 600%; background-position: ${(quadX * 50 + colInQuad * 10)}% ${(quadY * 50 + rowInQuad * 16.6)}%;`;
-            }
-            
-            return `
-                <div class="card-face card-front">
-                    <div class="card-sprite" style="${style}"></div>
+            let content = "";
+            if (card.image) {
+                content = `
+                    <div class="card-border-inner">
+                        <img src="${card.image}" class="card-image-full" onerror="this.outerHTML='<div class=\'cat-placeholder\'>✨</div>'">
+                    </div>
                     <div class="card-title-plate">${card.name}</div>
-                </div>`;
+                `;
+            } else {
+                content = `
+                    <div class="card-border-inner">
+                        <div class="cat-placeholder">🐾</div>
+                    </div>
+                    <div class="card-title-plate">${card.name}</div>
+                `;
+            }
+            return `<div class="card-face card-front">${content}</div>`;
         }
 
         let selectedCards = [];
 
         function initDeck() {
             const container = document.getElementById('deck-container');
+            if(!container) return;
             container.innerHTML = ''; selectedCards = [];
             for(let i=0; i<3; i++) {
                 const cardEl = document.createElement('div');
@@ -309,29 +461,28 @@
                 cardEl.innerHTML = `
                     <div class="tarot-card-inner">
                         <div class="card-face card-back"></div>
-                        <div class="placeholder-front"></div>
+                        <div class="card-face card-front"></div>
                     </div>`;
                 
-                cardEl.addEventListener('click', function() {
+                cardEl.onclick = function() {
                     if (this.classList.contains('flipped') || selectedCards.length >= 3) return;
-                    
-                    const pool = [...deckData.major, ...deckData.minor.Wands, ...deckData.minor.Cups];
+                    const pool = [...deckData.major, ...deckData.minor.Wands, ...deckData.minor.Cups, ...deckData.minor.Swords];
                     const card = pool[Math.floor(Math.random() * pool.length)];
-                    
-                    this.querySelector('.placeholder-front').outerHTML = getCardHTML(card);
+                    const front = this.querySelector('.card-front');
+                    front.innerHTML = getCardHTML(card).replace('<div class="card-face card-front">', '').replace('</div>', '');
                     this.classList.add('flipped');
                     selectedCards.push(card);
-                    
                     if (selectedCards.length === 3) setTimeout(showPopUp, 1200);
-                });
-                
+                };
                 container.appendChild(cardEl);
             }
         }
 
         function showPopUp() {
             const positions = ["The Recent Past", "The Present Vibration", "The Immediate Future"];
-            document.getElementById('modal-content').innerHTML = selectedCards.map((c, i) => `
+            const content = document.getElementById('modal-content');
+            if(!content) return;
+            content.innerHTML = selectedCards.map((c, i) => `
                 <div class="p-6 bg-white/5 border border-white/5 rounded-2xl">
                     <span class="text-[10px] uppercase tracking-widest text-gold-leaf/50 font-bold">${positions[i]}</span>
                     <h4 class="text-xl font-bold text-white uppercase mt-1">${c.name}</h4>
@@ -343,6 +494,7 @@
 
         function showCategory(type) {
             const view = document.getElementById('category-detail');
+            if(!view) return;
             view.classList.remove('hidden');
             setTimeout(() => view.classList.add('opacity-100', 'translate-y-0'), 10);
             document.getElementById('detail-title').innerText = type === 'major' ? "Major Mysteries" : "Daily Rituals";
@@ -352,19 +504,24 @@
         }
 
         function renderList(cards) {
-            document.getElementById('detail-list').innerHTML = cards.map(c => `
-                <div onclick='showSpotlight(${JSON.stringify(c)})' class="p-4 bg-white/5 border border-white/5 rounded-xl cursor-pointer hover:border-gold-leaf transition text-center">
-                    <span class="text-gold-leaf font-bold text-[10px] uppercase tracking-widest">${c.name}</span>
+            const list = document.getElementById('detail-list');
+            if(!list) return;
+            list.innerHTML = cards.map(c => `
+                <div onclick='showSpotlight(${JSON.stringify(c)})' class="p-4 bg-white/5 border border-white/5 rounded-xl cursor-pointer hover:border-gold-leaf transition text-center text-xs uppercase tracking-widest">
+                    ${c.name}${c.image ? '<span class="has-image-indicator">⭐</span>' : ''}
                 </div>
             `).join('');
         }
 
         function showSpotlight(card) {
+            const render = document.getElementById('spotlight-render');
+            if(!render) return;
             document.getElementById('spotlight-title').innerText = card.name;
             document.getElementById('spotlight-desc').innerText = card.desc;
-            document.getElementById('spotlight-render').innerHTML = `
-                <div class="tarot-card flipped cursor-default" style="width:280px;height:440px">
+            render.innerHTML = `
+                <div class="tarot-card flipped cursor-default mx-auto" style="width:200px;height:320px">
                     <div class="tarot-card-inner">
+                        <div class="card-face card-back"></div>
                         ${getCardHTML(card)}
                     </div>
                 </div>`;
@@ -373,7 +530,11 @@
 
         function closeSpotlight() { document.getElementById('spotlightModal').classList.remove('active'); }
         function closeModal() { document.getElementById('readingModal').classList.remove('active'); initDeck(); }
-        function hideCategory() { document.getElementById('category-detail').classList.remove('opacity-100', 'translate-y-0'); setTimeout(() => document.getElementById('category-detail').classList.add('hidden'), 500); }
+        function hideCategory() { 
+            const detail = document.getElementById('category-detail');
+            detail.classList.remove('opacity-100', 'translate-y-0'); 
+            setTimeout(() => detail.classList.add('hidden'), 500); 
+        }
         function filterMinor(suit) {
             document.querySelectorAll('.suit-btn').forEach(b => b.classList.toggle('bg-gold-leaf', b.innerText === suit));
             renderList(deckData.minor[suit]);
