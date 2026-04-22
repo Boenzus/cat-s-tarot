@@ -30,7 +30,6 @@
             background: radial-gradient(circle at 50% 50%, #16213e 0%, #0b101b 100%);
         }
 
-        /* Navbar Styling from Screenshot */
         .nav-link {
             font-size: 0.65rem;
             letter-spacing: 0.15em;
@@ -41,7 +40,6 @@
         }
         .nav-link:hover { color: var(--gold-leaf); }
 
-        /* Tarot Card Animation */
         .tarot-card {
             perspective: 1000px;
             cursor: pointer;
@@ -87,9 +85,7 @@
             content: '🐈‍⬛'; font-size: 4rem; color: var(--gold-leaf); opacity: 0.2;
         }
 
-        .card-front {
-            transform: rotateY(180deg);
-        }
+        .card-front { transform: rotateY(180deg); }
 
         .card-image-full {
             width: 100%;
@@ -121,7 +117,6 @@
             width: 100%; z-index: 2;
         }
 
-        /* Hero Pill Styling from Screenshot */
         .hero-pill {
             background-color: var(--bone-white);
             color: var(--void-black);
@@ -136,7 +131,6 @@
             font-size: 0.9rem;
         }
 
-        /* Hero Button Styling from Screenshot */
         .hero-btn {
             padding: 15px 40px;
             border: 1px solid white;
@@ -148,12 +142,8 @@
             transition: all 0.3s;
             display: inline-block;
         }
-        .hero-btn:hover {
-            background: white;
-            color: var(--void-black);
-        }
+        .hero-btn:hover { background: white; color: var(--void-black); }
 
-        /* Modals */
         .modal {
             display: none; position: fixed; inset: 0; z-index: 100;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
@@ -212,7 +202,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section Matched to image_472aa4.jpg -->
     <header class="h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
         <h1 class="text-6xl md:text-8xl font-black mb-6 uppercase tracking-tight text-white leading-[0.9]">
             UNVEIL THE<br>SECRET WISDOM
@@ -225,18 +214,17 @@
         </div>
     </header>
 
-    <!-- Archive -->
     <section id="article" class="py-32 px-6 bg-black/40">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-4xl mystic-font text-gold-leaf mb-16 uppercase tracking-widest">The Celestial Library</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div onclick="showCategory('major')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition group">
                     <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Major Arcana</h3>
-                    <p class="text-xs opacity-40">22 Cosmic Keys</p>
+                    <p class="text-xs opacity-40">The 22 Primary Archetypes</p>
                 </div>
                 <div onclick="showCategory('minor')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-gold-leaf transition group">
                     <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Minor Arcana</h3>
-                    <p class="text-xs opacity-40">56 Daily Rituals of Life</p>
+                    <p class="text-xs opacity-40">The 56 Daily Rituals of Life</p>
                 </div>
             </div>
 
@@ -256,7 +244,6 @@
         </div>
     </section>
 
-    <!-- History Section -->
     <section id="history" class="py-32 px-6">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl mystic-font text-gold-leaf mb-12 uppercase tracking-[0.3em]">History of Card</h2>
@@ -282,7 +269,6 @@
         </div>
     </section>
 
-    <!-- Divination Section -->
     <section id="reading" class="py-32 px-6">
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-5xl mystic-font text-white mb-6 uppercase tracking-widest text-center">Draw Three Cards</h2>
@@ -291,7 +277,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="py-32 px-6 bg-black/20 text-center">
         <h2 class="text-3xl mystic-font text-gold-leaf mb-8 uppercase tracking-widest">Connect with Cat Prophet</h2>
         <div class="h-px w-16 bg-gold-leaf mx-auto mb-8"></div>
@@ -301,11 +286,10 @@
         <a href="mailto:your-email@example.com" class="px-12 py-5 border border-gold-leaf text-gold-leaf uppercase tracking-[0.3em] font-bold hover:bg-gold-leaf hover:text-black transition shadow-[0_0_15px_rgba(212,175,55,0.1)]">Send Email Inquiry</a>
     </section>
 
-    <!-- Spotlight Modal -->
     <div id="spotlightModal" class="modal">
         <div class="max-w-4xl w-full flex flex-col md:flex-row gap-12 items-center bg-[#080808] border border-gold-leaf/40 p-12 rounded-[40px] relative shadow-[0_0_100px_rgba(0,0,0,1)]">
             <button onclick="closeSpotlight()" class="absolute top-8 right-10 text-4xl text-gold-leaf/20 hover:text-gold-leaf transition">&times;</button>
-            <div id="spotlight-render" class="w-[280px] h-[440px] flex-shrink-0"></div>
+            <div id="spotlight-render" class="w-[280px] h-[320px] flex-shrink-0"></div>
             <div class="flex-grow text-left space-y-6">
                 <h2 id="spotlight-title" class="text-4xl md:text-5xl mystic-font text-white uppercase tracking-tighter">Card Name</h2>
                 <div class="h-px w-24 bg-gold-leaf"></div>
@@ -315,7 +299,6 @@
         </div>
     </div>
 
-    <!-- Final Reading Result Modal -->
     <div id="readingModal" class="modal">
         <div class="bg-neutral-900 border border-gold-leaf/30 p-12 max-w-3xl w-full rounded-[40px] relative">
             <div class="text-center">
@@ -336,116 +319,111 @@
     </footer>
 
     <script>
-        const majorArcanaNames = [
-            "0 • The Cat (Fool)", "I • The Magician", "II • High Priestess", "III • The Empress", 
-            "IV • The Emperor", "V • The Hierophant", "VI • The Lovers", "VII • The Chariot",
-            "VIII • Strength", "IX • The Hermit", "X • Wheel of Fortune", "XI • Justice",
-            "XII • The Hanged Cat", "XIII • Death", "XIV • Temperance", "XV • The Devil",
-            "XVI • The Tower", "XVII • The Star", "XVIII • The Moon", "XIX • The Sun",
-            "XX • Judgement", "XXI • The World"
-        ];
-
         const deckData = {
-            major: majorArcanaNames.map((name, i) => {
-                const base = { name: name, type: 'major', desc: "A powerful archetype guiding your soul's journey through the multiverse." };
-                if (name.includes("Fool")) base.image = "fool.png";
-                if (name.includes("Empress")) base.image = "03 - The Empress.jpg";
-                if (name.includes("Emperor")) base.image = "04 - The Emperor.jpg";
-                if (name.includes("Hierophant")) base.image = "05 - The Hierophant.jpg";
-                if (name.includes("Lovers")) base.image = "06 - The Lovers.jpg";
-                if (name.includes("Chariot")) base.image = "07 - The Chariot.jpg";
-                if (name.includes("Strength")) base.image = "08 - Strength.jpg";
-                if (name.includes("Hermit")) base.image = "09 - The Hermit.jpg";
-                if (name.includes("Wheel")) base.image = "10 - Wheel of Fortune.jpg";
-                if (name.includes("Justice")) base.image = "11 - Justice.jpg";
-                if (name.includes("Hanged")) base.image = "12 - The Hanged Man.jpg";
-                if (name.includes("Death")) base.image = "13 - Death.jpg";
-                if (name.includes("Temperance")) base.image = "14 - Temperance.jpg";
-                if (name.includes("Devil")) base.image = "15 - The Devil.jpg";
-                if (name.includes("Tower")) base.image = "16 - The Tower.jpg";
-                if (name.includes("Moon")) base.image = "18 - The Moon.jpg";
-                if (name.includes("Sun")) base.image = "19 - The Sun.jpg";
-                if (name.includes("Judgement")) base.image = "20 - Judgement.jpg";
-                if (name.includes("World")) base.image = "21 - The World.jpg";
-                return base;
-            }),
+            major: [
+                { name: "0 • The Cat (Fool)", image: "fool.png", desc: "A leap of faith into the unknown, walking the high ledge with whiskers twitching at new adventures." },
+                { name: "I • The Magician", desc: "Mastering the four tools of the clowder; turning a simple string into a cosmic connection." },
+                { name: "II • High Priestess", desc: "The quiet sitter in the moonlight, guarding the secrets of the night that only eyes that glow can see." },
+                { name: "III • The Empress", image: "03 - The Empress.jpg", desc: "Abundance and the warmth of a sunny windowsill; the ultimate nurturer of life's litter." },
+                { name: "IV • The Emperor", image: "04 - The Emperor.jpg", desc: "Territorial authority and structured rule; the alpha who maintains the order of the den." },
+                { name: "V • The Hierophant", image: "05 - The Hierophant.jpg", desc: "Traditional wisdom passed down through sacred purrs and ancient feline rituals." },
+                { name: "VI • The Lovers", image: "06 - The Lovers.jpg", desc: "Two souls choosing the same path, a bond as deep as a shared nap in the afternoon sun." },
+                { name: "VII • The Chariot", image: "07 - The Chariot.jpg", desc: "Harnessing opposing forces with the focus of a predator mid-pounce; victory through willpower." },
+                { name: "VIII • Strength", image: "08 - Strength.jpg", desc: "The gentle dominance of a soft paw over a roar; true power lies in patience and quiet courage." },
+                { name: "IX • The Hermit", image: "09 - The Hermit.jpg", desc: "Withdrawing to the seek inner light and the truth that only solitude and silence reveals." },
+                { name: "X • Wheel of Fortune", image: "10 - Wheel of Fortune.jpg", desc: "The spinning yarn of destiny; today's high jump may be tomorrow's gentle landing." },
+                { name: "XI • Justice", image: "11 - Justice.jpg", desc: "The balance of the scale; actions have consequences, as precise as a cat landing on its feet." },
+                { name: "XII • The Hanged Cat", image: "12 - The Hanged Man.jpg", desc: "A change in perspective, seeing the world upside down while waiting for the right moment." },
+                { name: "XIII • Death", image: "13 - Death.jpg", desc: "The end of a hunt and the start of a new life; shedding the old fur to let the new grow in." },
+                { name: "XIV • Temperance", image: "14 - Temperance.jpg", desc: "Mixing the water and the wine with careful paws; finding the perfect middle ground of harmony." },
+                { name: "XV • The Devil", image: "15 - The Devil.jpg", desc: "The shadow of the red dot; being trapped by instincts or attachments that cloud the true path." },
+                { name: "XVI • The Tower", image: "16 - The Tower.jpg", desc: "The sudden collapse of the cat tree; a necessary destruction to rebuild a stronger foundation." },
+                { name: "XVII • The Star", desc: "A guiding light in the dark garden; hope that shines like a distant, unreachable firefly." },
+                { name: "XVIII • The Moon", image: "18 - The Moon.jpg", desc: "Navigating the landscape of shadows and dreams where reality is as fluid as a cat's shadow." },
+                { name: "XIX • The Sun", image: "19 - The Sun.jpg", desc: "The total joy of the midday sun; success, vitality, and the warmth of absolute clarity." },
+                { name: "XX • Judgement", image: "20 - Judgement.jpg", desc: "A cosmic awakening call to rise; reflecting on the journey and answering the soul's purr." },
+                { name: "XXI • The World", image: "21 - The World.jpg", desc: "The complete circle of the wanderer; achieving wholeness and finding your place in the universe." }
+            ],
             minor: {
-                Wands: Array.from({length: 14}, (_, i) => {
-                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Wands";
-                    const base = { name: name, type: 'minor', suit: 'Wands', desc: "A spark of fire, action, and creative energy." };
-                    if (i === 1) base.image = "23 - Two of Wands.jpg";
-                    if (i === 2) base.image = "24 - Three of Wands.jpg";
-                    if (i === 3) base.image = "25 - Four of Wands.jpg";
-                    if (i === 4) base.image = "26 - Five of Wands.jpg";
-                    if (i === 5) base.image = "27 - Six of Wands.jpg";
-                    if (i === 6) base.image = "28 - Seven of Wands.jpg";
-                    if (i === 7) base.image = "29 - Eight of Wands.jpg";
-                    if (i === 8) base.image = "30 - Nine of Wands.jpg";
-                    if (i === 9) base.image = "31 - Ten of Wands.jpg";
-                    if (i === 10) base.image = "32 - Page of Wands.jpg";
-                    if (i === 11) base.image = "33 - Knight of Wands.jpg";
-                    if (i === 12) base.image = "34 - Queen of Wands.jpg";
-                    if (i === 13) base.image = "35 - King of Wands.jpg";
-                    return base;
-                }),
-                Cups: Array.from({length: 14}, (_, i) => {
-                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Cups";
-                    const base = { name: name, type: 'minor', suit: 'Cups', desc: "Flow of emotion and deep connection." };
-                    if (i === 1) base.image = "37 - Two of Cups.jpg";
-                    if (i === 2) base.image = "38 - Three of Cups.jpg";
-                    if (i === 3) base.image = "39 - Four of Cups.jpg";
-                    if (i === 4) base.image = "40 - Five of Cups.jpg";
-                    if (i === 5) base.image = "41 - Six of Cups.jpg";
-                    if (i === 6) base.image = "42 - Seven of Cups.jpg";
-                    if (i === 7) base.image = "43 - Eight of Cups.jpg";
-                    if (i === 8) base.image = "44 - Nine of Cups.jpg";
-                    if (i === 9) base.image = "45 - Ten of Cups.jpg";
-                    if (i === 10) base.image = "46 - Page of Cups.jpg";
-                    if (i === 11) base.image = "47 - Knight of Cups.jpg";
-                    if (i === 12) base.image = "48 - Queen of Cups.jpg";
-                    if (i === 13) base.image = "49 - King of Cups.jpg";
-                    return base;
-                }),
-                Swords: Array.from({length: 14}, (_, i) => {
-                    const name = (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Swords";
-                    const base = { name: name, type: 'minor', suit: 'Swords', desc: "Clarity of the mind, intellect, and sharp truth." };
-                    if (i === 0) base.image = "50 - Ace of Swords.jpg";
-                    if (i === 1) base.image = "51 - Two of Swords.jpg";
-                    if (i === 2) base.image = "52 - Three of Swords.jpg";
-                    if (i === 3) base.image = "53 - Four of Swords.jpg";
-                    if (i === 4) base.image = "54 - Five of Swords.jpg";
-                    if (i === 5) base.image = "55 - Six of Swords.jpg";
-                    if (i === 6) base.image = "56 - Seven of Swords.jpg";
-                    if (i === 7) base.image = "57 - Eight of Swords.jpg";
-                    if (i === 8) base.image = "58 - Nine of Swords.jpg";
-                    if (i === 9) base.image = "59 - Ten of Swords.jpg";
-                    if (i === 10) base.image = "60 - Page of Swords.jpg";
-                    if (i === 11) base.image = "61 - Knight of Swords.jpg";
-                    if (i === 12) base.image = "62 - Queen of Swords.jpg";
-                    if (i === 13) base.image = "63 - King of Swords.jpg";
-                    return base;
-                }),
-                Pentacles: Array.from({length: 14}, (_, i) => ({ name: (i === 0 ? "Ace" : (i < 10 ? i+1 : ["Page", "Knight", "Queen", "King"][i-10])) + " of Pentacles", type: 'minor', suit: 'Pentacles', desc: "Material security and comfort." }))
+                Wands: [
+                    { name: "Ace of Wands", image: "22 - Ace of Wands.jpg", desc: "A fresh spark of creative fire; the first scratch on a new path of action." },
+                    { name: "2 of Wands", image: "23 - Two of Wands.jpg", desc: "Planning the next leap from the balcony; the world is your territory to explore." },
+                    { name: "3 of Wands", image: "24 - Three of Wands.jpg", desc: "Watching the ships from the shore, knowing your ships of opportunity are near." },
+                    { name: "4 of Wands", image: "25 - Four of Wands.jpg", desc: "A celebration of the safe home; domestic bliss, harmony, and stability." },
+                    { name: "5 of Wands", image: "26 - Five of Wands.jpg", desc: "The playful scramble of kittens; competition that builds skill and character." },
+                    { name: "6 of Wands", image: "27 - Six of Wands.jpg", desc: "The victory march after a successful hunt; receiving the clowder's praise." },
+                    { name: "7 of Wands", image: "28 - Seven of Wands.jpg", desc: "Defending your high ground against those who wish to pull you down from your perch." },
+                    { name: "8 of Wands", image: "29 - Eight of Wands.jpg", desc: "Swift news and rapid movement; the pounce is happening now, don't miss it." },
+                    { name: "9 of Wands", image: "30 - Nine of Wands.jpg", desc: "The battle-worn guardian; tired but standing firm at the threshold of victory." },
+                    { name: "10 of Wands", image: "31 - Ten of Wands.jpg", desc: "Carrying too many toys at once; the burden of success needs careful delegation." },
+                    { name: "Page of Wands", image: "32 - Page of Wands.jpg", desc: "An enthusiastic messenger with a restless spirit and a new toy to share." },
+                    { name: "Knight of Wands", image: "33 - Knight of Wands.jpg", desc: "Charging forward with fiery passion, sometimes before thinking where you will land." },
+                    { name: "Queen of Wands", image: "34 - Queen of Wands.jpg", desc: "A warm, creative presence who manages her kingdom with a confident paw." },
+                    { name: "King of Wands", image: "35 - King of Wands.jpg", desc: "The visionary leader who transforms raw energy into lasting and powerful structures." }
+                ],
+                Cups: [
+                    { name: "Ace of Cups", image: "36 - Ace of Cups.jpg", desc: "An overflowing bowl of pure love and emotional beginning; the spirit of connection." },
+                    { name: "2 of Cups", image: "37 - Two of Cups.jpg", desc: "A meeting of whiskers; a partnership built on mutual trust and shared energy." },
+                    { name: "3 of Cups", image: "38 - Three of Cups.jpg", desc: "A social gathering of friends; sharing the milk of kindness and social joy." },
+                    { name: "4 of Cups", image: "39 - Four of Cups.jpg", desc: "Turning your nose up at the bowl; boredom and missing the gift offered by the night." },
+                    { name: "5 of Cups", image: "40 - Five of Cups.jpg", desc: "Crying over spilled milk; focusing on the loss instead of what remains in the bowl." },
+                    { name: "6 of Cups", image: "41 - Six of Cups.jpg", desc: "Memories of the kitten-hood; childhood nostalgia and the simple joys of the past." },
+                    { name: "7 of Cups", image: "42 - Seven of Cups.jpg", desc: "Too many choices in the pantry; getting lost in illusions and multiple dreams." },
+                    { name: "8 of Cups", image: "43 - Eight of Cups.jpg", desc: "Walking away from the full bowl to find something deeper for the soul's journey." },
+                    { name: "9 of Cups", image: "44 - Nine of Cups.jpg", desc: "The cat who got the cream; emotional satisfaction and deep personal contentment." },
+                    { name: "10 of Cups", image: "45 - Ten of Cups.jpg", desc: "The ultimate family bond; a home filled with harmony, love, and lasting bliss." },
+                    { name: "Page of Cups", image: "46 - Page of Cups.jpg", desc: "A sensitive soul dreaming of the deep; emotional news or a creative idea is coming." },
+                    { name: "Knight of Cups", image: "47 - Knight of Cups.jpg", desc: "The romantic wanderer following his heart's true compass toward the shore." },
+                    { name: "Queen of Cups", image: "48 - Queen of Cups.jpg", desc: "The intuitive empath who mirrors the feelings and secrets of those around her." },
+                    { name: "King of Cups", image: "49 - King of Cups.jpg", desc: "Mastering the emotional tides; staying calm even when the bathwater rises." }
+                ],
+                Swords: [
+                    { name: "Ace of Swords", image: "50 - Ace of Swords.jpg", desc: "A sharp claw of clarity; a new idea that cuts through the fog of confusion." },
+                    { name: "2 of Swords", image: "51 - Two of Swords.jpg", desc: "A stalemate of whiskers; a difficult choice that requires inner peace and focus." },
+                    { name: "3 of Swords", image: "52 - Three of Swords.jpg", desc: "The sting of a betrayal; a heart-break that requires time to heal and grow back stronger." },
+                    { name: "4 of Swords", image: "53 - Four of Swords.jpg", desc: "A long nap in the sun to recover; resting the mind after a heavy mental battle." },
+                    { name: "5 of Swords", image: "54 - Five of Swords.jpg", desc: "A hollow victory where the cost of the fight was too high for the actual reward." },
+                    { name: "6 of Swords", image: "55 - Six of Swords.jpg", desc: "Rowing away to calmer waters; moving on from a difficult territory or memory." },
+                    { name: "7 of Swords", image: "56 - Seven of Swords.jpg", desc: "The sneaky thief taking what isn't theirs; deception and solo strategy." },
+                    { name: "8 of Swords", image: "57 - Eight of Swords.jpg", desc: "Trapped in a cage of your own making; the blinkers are the only real prison." },
+                    { name: "9 of Swords", image: "58 - Nine of Swords.jpg", desc: "Nightmares in the dark; anxiety that grows when the lights go out." },
+                    { name: "10 of Swords", image: "59 - Ten of Swords.jpg", desc: "The absolute end of a difficult hunt; you have hit the bottom, now only up." },
+                    { name: "Page of Swords", image: "60 - Page of Swords.jpg", desc: "A sharp-eyed observer who speaks the truth, even if it causes a hiss." },
+                    { name: "Knight of Swords", image: "61 - Knight of Swords.jpg", desc: "Charging into the argument with cold logic and a sharp, focused intellect." },
+                    { name: "Queen of Swords", image: "62 - Queen of Swords.jpg", desc: "An independent thinker who values the truth above all comfort and shadow." },
+                    { name: "King of Swords", image: "63 - King of Swords.jpg", desc: "The judge of the clowder; fair, intellectual, and strictly logical in his rule." }
+                ],
+                Pentacles: [
+                    { name: "Ace of Pentacles", image: "64 - Ace of Pentacles.jpg", desc: "A golden coin found in the tall grass; a new opportunity for material growth." },
+                    { name: "2 of Pentacles", image: "65 - Two of Pentacles.jpg", desc: "Juggling the demands of the day; finding balance in the material world." },
+                    { name: "3 of Pentacles", image: "66 - Three of Pentacles.jpg", desc: "Working together to build the ultimate cat tree; teamwork and skilled craftsmanship." },
+                    { name: "4 of Pentacles", image: "67 - Four of Pentacles.jpg", desc: "Guarding your hoard of toys too tightly; the fear of losing physical security." },
+                    { name: "5 of Pentacles", image: "68 - Five of Pentacles.jpg", desc: "Left out in the cold rain; material struggle and feeling abandoned by the clowder." },
+                    { name: "6 of Pentacles", image: "69 - Six of Pentacles.jpg", desc: "Sharing the kibble; charity and the cycle of giving and receiving abundance." },
+                    { name: "7 of Pentacles", image: "70 - Seven of Pentacles.jpg", desc: "Watching the garden grow; waiting for the harvest of your long-term efforts." },
+                    { name: "8 of Pentacles", image: "71 - Eight of Pentacles.jpg", desc: "Perfecting the skill of the hunt; dedication to your craft and steady study." },
+                    { name: "9 of Pentacles", image: "72 - Nine of Pentacles.jpg", desc: "A life of luxury and independence; enjoying the fruits of your hard labor." },
+                    { name: "10 of Pentacles", image: "73 - Ten of Pentacles.jpg", desc: "A legacy of wealth and family; a solid home that lasts for many generations." },
+                    { name: "Page of Pentacles", image: "74 - Page of Pentacles.jpg", desc: "A studious learner focused on the practical world and new physical goals." },
+                    { name: "Knight of Pentacles", image: "75 - Knight of Pentacles.jpg", desc: "The steady, reliable worker who gets the job done, paw by careful paw." },
+                    { name: "Queen of Pentacles", image: "76 - Queen of Pentacles.jpg", desc: "A grounded, practical provider who creates a comfortable den for all." },
+                    { name: "King of Pentacles", image: "77 - King of Pentacles.jpg", desc: "The master of the material realm; success, abundance, and absolute security." }
+                ]
             }
         };
 
         function getCardHTML(card) {
-            let content = "";
-            if (card.image) {
-                content = `
-                    <div class="card-border-inner">
-                        <img src="${card.image}" class="card-image-full" onerror="this.outerHTML='<div class=\'cat-placeholder\'>✨</div>'">
-                    </div>
-                    <div class="card-title-plate">${card.name}</div>
-                `;
-            } else {
-                content = `
-                    <div class="card-border-inner">
-                        <div class="cat-placeholder">🐾</div>
-                    </div>
-                    <div class="card-title-plate">${card.name}</div>
-                `;
-            }
+            let content = card.image ? `
+                <div class="card-border-inner">
+                    <img src="${card.image}" class="card-image-full" onerror="this.outerHTML='<div class=\'cat-placeholder\'>✨</div>'">
+                </div>
+                <div class="card-title-plate">${card.name}</div>
+            ` : `
+                <div class="card-border-inner">
+                    <div class="cat-placeholder">🐾</div>
+                </div>
+                <div class="card-title-plate">${card.name}</div>
+            `;
             return `<div class="card-face card-front">${content}</div>`;
         }
 
@@ -458,15 +436,10 @@
             for(let i=0; i<3; i++) {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'tarot-card';
-                cardEl.innerHTML = `
-                    <div class="tarot-card-inner">
-                        <div class="card-face card-back"></div>
-                        <div class="card-face card-front"></div>
-                    </div>`;
-                
+                cardEl.innerHTML = `<div class="tarot-card-inner"><div class="card-face card-back"></div><div class="card-face card-front"></div></div>`;
                 cardEl.onclick = function() {
                     if (this.classList.contains('flipped') || selectedCards.length >= 3) return;
-                    const pool = [...deckData.major, ...deckData.minor.Wands, ...deckData.minor.Cups, ...deckData.minor.Swords];
+                    const pool = [...deckData.major, ...deckData.minor.Wands, ...deckData.minor.Cups, ...deckData.minor.Swords, ...deckData.minor.Pentacles];
                     const card = pool[Math.floor(Math.random() * pool.length)];
                     const front = this.querySelector('.card-front');
                     front.innerHTML = getCardHTML(card).replace('<div class="card-face card-front">', '').replace('</div>', '');
@@ -492,28 +465,8 @@
             document.getElementById('readingModal').classList.add('active');
         }
 
-        function showCategory(type) {
-            const view = document.getElementById('category-detail');
-            if(!view) return;
-            view.classList.remove('hidden');
-            setTimeout(() => view.classList.add('opacity-100', 'translate-y-0'), 10);
-            document.getElementById('detail-title').innerText = type === 'major' ? "Major Mysteries" : "Daily Rituals";
-            document.getElementById('suit-selector').classList.toggle('hidden', type === 'major');
-            renderList(type === 'major' ? deckData.major : deckData.minor.Wands);
-            view.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        function renderList(cards) {
-            const list = document.getElementById('detail-list');
-            if(!list) return;
-            list.innerHTML = cards.map(c => `
-                <div onclick='showSpotlight(${JSON.stringify(c)})' class="p-4 bg-white/5 border border-white/5 rounded-xl cursor-pointer hover:border-gold-leaf transition text-center text-xs uppercase tracking-widest">
-                    ${c.name}${c.image ? '<span class="has-image-indicator">⭐</span>' : ''}
-                </div>
-            `).join('');
-        }
-
-        function showSpotlight(card) {
+        function openSpotlightByIndex(type, index, suit) {
+            const card = (type === 'major') ? deckData.major[index] : deckData.minor[suit][index];
             const render = document.getElementById('spotlight-render');
             if(!render) return;
             document.getElementById('spotlight-title').innerText = card.name;
@@ -528,6 +481,27 @@
             document.getElementById('spotlightModal').classList.add('active');
         }
 
+        function showCategory(type) {
+            const view = document.getElementById('category-detail');
+            if(!view) return;
+            view.classList.remove('hidden');
+            setTimeout(() => view.classList.add('opacity-100', 'translate-y-0'), 10);
+            document.getElementById('detail-title').innerText = type === 'major' ? "Major Mysteries" : "Daily Rituals";
+            document.getElementById('suit-selector').classList.toggle('hidden', type === 'major');
+            renderList(type === 'major' ? deckData.major : deckData.minor.Wands, type, type === 'major' ? '' : 'Wands');
+            view.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function renderList(cards, type, suit) {
+            const list = document.getElementById('detail-list');
+            if(!list) return;
+            list.innerHTML = cards.map((c, index) => `
+                <div onclick="openSpotlightByIndex('${type}', ${index}, '${suit}')" class="p-4 bg-white/5 border border-white/5 rounded-xl cursor-pointer hover:border-gold-leaf transition text-center text-xs uppercase tracking-widest">
+                    ${c.name}${c.image ? '<span class="has-image-indicator">⭐</span>' : ''}
+                </div>
+            `).join('');
+        }
+
         function closeSpotlight() { document.getElementById('spotlightModal').classList.remove('active'); }
         function closeModal() { document.getElementById('readingModal').classList.remove('active'); initDeck(); }
         function hideCategory() { 
@@ -537,7 +511,7 @@
         }
         function filterMinor(suit) {
             document.querySelectorAll('.suit-btn').forEach(b => b.classList.toggle('bg-gold-leaf', b.innerText === suit));
-            renderList(deckData.minor[suit]);
+            renderList(deckData.minor[suit], 'minor', suit);
         }
 
         window.onload = initDeck;
