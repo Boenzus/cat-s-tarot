@@ -40,6 +40,7 @@
         }
         .nav-link:hover { color: var(--gold-leaf); }
 
+        /* Tarot Card Logic */
         .tarot-card {
             perspective: 1000px;
             cursor: pointer;
@@ -117,6 +118,7 @@
             width: 100%; z-index: 2;
         }
 
+        /* Hero Pill Styling */
         .hero-pill {
             background-color: var(--bone-white);
             color: var(--void-black);
@@ -144,6 +146,7 @@
         }
         .hero-btn:hover { background: white; color: var(--void-black); }
 
+        /* Modals */
         .modal {
             display: none; position: fixed; inset: 0; z-index: 100;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
@@ -202,6 +205,7 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
         <h1 class="text-6xl md:text-8xl font-black mb-6 uppercase tracking-tight text-white leading-[0.9]">
             UNVEIL THE<br>SECRET WISDOM
@@ -214,6 +218,7 @@
         </div>
     </header>
 
+    <!-- Archive Section -->
     <section id="article" class="py-32 px-6 bg-black/40">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-4xl mystic-font text-gold-leaf mb-16 uppercase tracking-widest">The Celestial Library</h2>
@@ -228,6 +233,7 @@
                 </div>
             </div>
 
+            <!-- Library Content Area -->
             <div id="category-detail" class="mt-16 hidden opacity-0 transition-all duration-1000 transform translate-y-8 p-12 bg-neutral-900/80 rounded-[40px] border border-gold-leaf/20 backdrop-blur-xl">
                 <div class="flex justify-between items-center mb-12 border-b border-gold-leaf/10 pb-6">
                     <h3 id="detail-title" class="text-3xl mystic-font text-gold-leaf uppercase">Library</h3>
@@ -244,6 +250,7 @@
         </div>
     </section>
 
+    <!-- History Section -->
     <section id="history" class="py-32 px-6">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl mystic-font text-gold-leaf mb-12 uppercase tracking-[0.3em]">History of Card</h2>
@@ -260,7 +267,7 @@
                         In 1909, she achieved a breakthrough of unprecedented historical significance: 
                         she was the <span class="italic">first</span> to illustrate the Minor Arcana with full, scenic human imagery, transforming what were once simple symbols into deep psychological stories.
                     </p>
-                    <p class="text-sm opacity-60">
+                    <p>
                         Though her original art focused on the human soul, her "Pixie" spirit lives on in every interpretation that follows her structure. 
                         Cat Prophet celebrates her original archetypes by re-imagining them through this dedicated cat-themed creative lens.
                     </p>
@@ -269,6 +276,7 @@
         </div>
     </section>
 
+    <!-- Divination Section -->
     <section id="reading" class="py-32 px-6">
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-5xl mystic-font text-white mb-6 uppercase tracking-widest text-center">Draw Three Cards</h2>
@@ -277,6 +285,7 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="py-32 px-6 bg-black/20 text-center">
         <h2 class="text-3xl mystic-font text-gold-leaf mb-8 uppercase tracking-widest">Connect with Cat Prophet</h2>
         <div class="h-px w-16 bg-gold-leaf mx-auto mb-8"></div>
@@ -286,10 +295,11 @@
         <a href="mailto:your-email@example.com" class="px-12 py-5 border border-gold-leaf text-gold-leaf uppercase tracking-[0.3em] font-bold hover:bg-gold-leaf hover:text-black transition shadow-[0_0_15px_rgba(212,175,55,0.1)]">Send Email Inquiry</a>
     </section>
 
+    <!-- Modal for Spotlighting Single Card -->
     <div id="spotlightModal" class="modal">
         <div class="max-w-4xl w-full flex flex-col md:flex-row gap-12 items-center bg-[#080808] border border-gold-leaf/40 p-12 rounded-[40px] relative shadow-[0_0_100px_rgba(0,0,0,1)]">
             <button onclick="closeSpotlight()" class="absolute top-8 right-10 text-4xl text-gold-leaf/20 hover:text-gold-leaf transition">&times;</button>
-            <div id="spotlight-render" class="w-[280px] h-[320px] flex-shrink-0"></div>
+            <div id="spotlight-render" class="w-[200px] h-[320px] flex-shrink-0"></div>
             <div class="flex-grow text-left space-y-6">
                 <h2 id="spotlight-title" class="text-4xl md:text-5xl mystic-font text-white uppercase tracking-tighter">Card Name</h2>
                 <div class="h-px w-24 bg-gold-leaf"></div>
@@ -299,6 +309,7 @@
         </div>
     </div>
 
+    <!-- Final Reading Result Modal -->
     <div id="readingModal" class="modal">
         <div class="bg-neutral-900 border border-gold-leaf/30 p-12 max-w-3xl w-full rounded-[40px] relative">
             <div class="text-center">
@@ -319,95 +330,97 @@
     </footer>
 
     <script>
+        const numToWord = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"];
+
         const deckData = {
             major: [
-                { name: "0 • The Cat (Fool)", image: "fool.png", desc: "A leap of faith into the unknown, walking the high ledge with whiskers twitching at new adventures." },
-                { name: "I • The Magician", desc: "Mastering the four tools of the clowder; turning a simple string into a cosmic connection." },
-                { name: "II • High Priestess", desc: "The quiet sitter in the moonlight, guarding the secrets of the night that only eyes that glow can see." },
-                { name: "III • The Empress", image: "03 - The Empress.jpg", desc: "Abundance and the warmth of a sunny windowsill; the ultimate nurturer of life's litter." },
-                { name: "IV • The Emperor", image: "04 - The Emperor.jpg", desc: "Territorial authority and structured rule; the alpha who maintains the order of the den." },
-                { name: "V • The Hierophant", image: "05 - The Hierophant.jpg", desc: "Traditional wisdom passed down through sacred purrs and ancient feline rituals." },
-                { name: "VI • The Lovers", image: "06 - The Lovers.jpg", desc: "Two souls choosing the same path, a bond as deep as a shared nap in the afternoon sun." },
-                { name: "VII • The Chariot", image: "07 - The Chariot.jpg", desc: "Harnessing opposing forces with the focus of a predator mid-pounce; victory through willpower." },
-                { name: "VIII • Strength", image: "08 - Strength.jpg", desc: "The gentle dominance of a soft paw over a roar; true power lies in patience and quiet courage." },
-                { name: "IX • The Hermit", image: "09 - The Hermit.jpg", desc: "Withdrawing to the seek inner light and the truth that only solitude and silence reveals." },
-                { name: "X • Wheel of Fortune", image: "10 - Wheel of Fortune.jpg", desc: "The spinning yarn of destiny; today's high jump may be tomorrow's gentle landing." },
-                { name: "XI • Justice", image: "11 - Justice.jpg", desc: "The balance of the scale; actions have consequences, as precise as a cat landing on its feet." },
-                { name: "XII • The Hanged Cat", image: "12 - The Hanged Man.jpg", desc: "A change in perspective, seeing the world upside down while waiting for the right moment." },
-                { name: "XIII • Death", image: "13 - Death.jpg", desc: "The end of a hunt and the start of a new life; shedding the old fur to let the new grow in." },
-                { name: "XIV • Temperance", image: "14 - Temperance.jpg", desc: "Mixing the water and the wine with careful paws; finding the perfect middle ground of harmony." },
-                { name: "XV • The Devil", image: "15 - The Devil.jpg", desc: "The shadow of the red dot; being trapped by instincts or attachments that cloud the true path." },
-                { name: "XVI • The Tower", image: "16 - The Tower.jpg", desc: "The sudden collapse of the cat tree; a necessary destruction to rebuild a stronger foundation." },
-                { name: "XVII • The Star", desc: "A guiding light in the dark garden; hope that shines like a distant, unreachable firefly." },
-                { name: "XVIII • The Moon", image: "18 - The Moon.jpg", desc: "Navigating the landscape of shadows and dreams where reality is as fluid as a cat's shadow." },
-                { name: "XIX • The Sun", image: "19 - The Sun.jpg", desc: "The total joy of the midday sun; success, vitality, and the warmth of absolute clarity." },
-                { name: "XX • Judgement", image: "20 - Judgement.jpg", desc: "A cosmic awakening call to rise; reflecting on the journey and answering the soul's purr." },
-                { name: "XXI • The World", image: "21 - The World.jpg", desc: "The complete circle of the wanderer; achieving wholeness and finding your place in the universe." }
+                { name: "0 • The Fool", image: "00 - The Fool.jpg", desc: "Starting something new and taking risks. This card indicates one who knows they are taking a leap but wishes to try. Pure spirit of adventure." },
+                { name: "I • The Magician", image: "01 - The Magician.jpg", desc: "A call for ambition and action. You have the tools necessary to manifest your desires through focus and will." },
+                { name: "II • High Priestess", image: "02 - The High Priestess.jpg", desc: "Intelligent, knowledgeable, and capable. She often keeps her abilities hidden, speaking out only when the time is right. Trust the unrevealed future." },
+                { name: "III • The Empress", image: "03 - The Empress.jpg", desc: "Representing motherhood, happiness, and comfort. Wealth and opportunities are available to be seized now." },
+                { name: "IV • The Emperor", image: "04 - The Emperor.jpg", desc: "Authority and structure. It suggests a situation where one must comply with the order of elders or established control." },
+                { name: "V • The Hierophant", image: "05 - The Hierophant.jpg", desc: "Effective performance and traditional knowledge. Represents a unified family or a knowledgeable representative in your life." },
+                { name: "VI • The Lovers", image: "06 - The Lovers.jpg", desc: "A card of passion, representing recognized love or a difficult decision that must be made from the heart." },
+                { name: "VII • The Chariot", image: "07 - The Chariot.jpg", desc: "Steadfastness and diligence are required. This card signifies achieving success through sheer determination." },
+                { name: "VIII • Strength", image: "08 - Strength.jpg", desc: "Representing the highest authority and power. Like a powerful motherboard, nothing can harm this energy; it controls the systems of the night." },
+                { name: "IX • The Hermit", image: "09 - The Hermit.jpg", desc: "Solitude and healing the mind. Apply yourself to analytical thinking and avoid hasty or decisive actions for now." },
+                { name: "X • Wheel of Fortune", image: "10 - Wheel of Fortune.jpg", desc: "Change is possible and often unexpected. Preparation is not necessary, as cycles of luck will turn as they will." },
+                { name: "XI • Justice", image: "11 - Justice.jpg", desc: "Decision-making, equality, and law. You will receive fairness and a decision will be made that leads to balance." },
+                { name: "XII • The Hanged Man", image: "12 - The Hanged Man.jpg", desc: "Waiting and sacrifice. You may be unable to make a decision, requiring you to remain still or sacrifice personal happiness for a time." },
+                { name: "XIII • Death", image: "13 - Death.jpg", desc: "Change and rebirth. Serious matters will gradually improve as bad things turn into good through transformation." },
+                { name: "XIV • Temperance", image: "14 - Temperance.jpg", desc: "Negotiation and balance. Create harmony in your life by compromising to get what you truly want." },
+                { name: "XV • The Devil", image: "15 - The Devil.jpg", desc: "Control and bondage. Be careful of being unwillingly bound or losing your willpower and hope to external forces." },
+                { name: "XVI • The Tower", image: "16 - The Tower.jpg", desc: "Sudden change and conflict. Prepare for unexpected events or unforeseen news that may cause major shifts." },
+                { name: "XVII • The Star", image: "17 - The Star.jpg", desc: "Hope and peace. Even in the darkest times, this card is a glimmer of hope appearing from the stars. Remain calm." },
+                { name: "XVIII • The Moon", image: "18 - The Moon.jpg", desc: "Fear and illusion. Consider carefully whether your fears are real or merely illusions creeping in unexpectedly." },
+                { name: "XIX • The Sun", image: "19 - The Sun.jpg", desc: "Growth, light, and vitality. Passion and vibrancy lead to a positive surprise coming your way soon." },
+                { name: "XX • Judgement", image: "20 - Judgement.jpg", desc: "Decision-making and second chances. Let go of the past to make room for new important choices." },
+                { name: "XXI • The World", image: "21 - The World.jpg", desc: "Success and fulfillment. A very positive card signifying a successful conclusion and a fulfilling life." }
             ],
             minor: {
                 Wands: [
-                    { name: "Ace of Wands", image: "22 - Ace of Wands.jpg", desc: "A fresh spark of creative fire; the first scratch on a new path of action." },
-                    { name: "2 of Wands", image: "23 - Two of Wands.jpg", desc: "Planning the next leap from the balcony; the world is your territory to explore." },
-                    { name: "3 of Wands", image: "24 - Three of Wands.jpg", desc: "Watching the ships from the shore, knowing your ships of opportunity are near." },
-                    { name: "4 of Wands", image: "25 - Four of Wands.jpg", desc: "A celebration of the safe home; domestic bliss, harmony, and stability." },
-                    { name: "5 of Wands", image: "26 - Five of Wands.jpg", desc: "The playful scramble of kittens; competition that builds skill and character." },
-                    { name: "6 of Wands", image: "27 - Six of Wands.jpg", desc: "The victory march after a successful hunt; receiving the clowder's praise." },
-                    { name: "7 of Wands", image: "28 - Seven of Wands.jpg", desc: "Defending your high ground against those who wish to pull you down from your perch." },
-                    { name: "8 of Wands", image: "29 - Eight of Wands.jpg", desc: "Swift news and rapid movement; the pounce is happening now, don't miss it." },
-                    { name: "9 of Wands", image: "30 - Nine of Wands.jpg", desc: "The battle-worn guardian; tired but standing firm at the threshold of victory." },
-                    { name: "10 of Wands", image: "31 - Ten of Wands.jpg", desc: "Carrying too many toys at once; the burden of success needs careful delegation." },
-                    { name: "Page of Wands", image: "32 - Page of Wands.jpg", desc: "An enthusiastic messenger with a restless spirit and a new toy to share." },
-                    { name: "Knight of Wands", image: "33 - Knight of Wands.jpg", desc: "Charging forward with fiery passion, sometimes before thinking where you will land." },
-                    { name: "Queen of Wands", image: "34 - Queen of Wands.jpg", desc: "A warm, creative presence who manages her kingdom with a confident paw." },
-                    { name: "King of Wands", image: "35 - King of Wands.jpg", desc: "The visionary leader who transforms raw energy into lasting and powerful structures." }
+                    { name: "Ace of Wands", image: "22 - Ace of Wands.jpg", desc: "Receiving news and opportunities. The start of a brand new activity or creative spark." },
+                    { name: "Two of Wands", image: "23 - Two of Wands.jpg", desc: "Planning for the future with courage. Daring to step into an unfamiliar world." },
+                    { name: "Three of Wands", image: "24 - Three of Wands.jpg", desc: "Foresight and travel. Doing what you fear to reach unfamiliar but rewarding places." },
+                    { name: "Four of Wands", image: "25 - Four of Wands.jpg", desc: "A time of celebration, marriage, and deep fulfillment in your home life." },
+                    { name: "Five of Wands", image: "26 - Five of Wands.jpg", desc: "Competition and obstacles. Disagreements and conflicts that require effort to resolve." },
+                    { name: "Six of Wands", image: "27 - Six of Wands.jpg", desc: "Victory and success. Public celebrations of your achievements and hard work." },
+                    { name: "Seven of Wands", image: "28 - Seven of Wands.jpg", desc: "Steadfastness and self-protection. Overcoming numerous burdens to defend your position." },
+                    { name: "Eight of Wands", image: "29 - Eight of Wands.jpg", desc: "Rapid news and communication from afar. Opportunities for long-distance travel appear." },
+                    { name: "Nine of Wands", image: "30 - Nine of Wands.jpg", desc: "Strength, determination, and self-defense. Making important decisions with resilience." },
+                    { name: "Ten of Wands", image: "31 - Ten of Wands.jpg", desc: "Excessive responsibility. Carrying work that prevents you from moving toward other goals." },
+                    { name: "Page of Wands", image: "32 - Page of Wands.jpg", desc: "Enthusiasm and courage. Receiving information that sparks determination in your chosen path." },
+                    { name: "Knight of Wands", image: "33 - Knight of Wands.jpg", desc: "Self-confidence and risk-taking. Acting quickly and nimbly to achieve your aims." },
+                    { name: "Queen of Wands", image: "34 - Queen of Wands.jpg", desc: "A card of creativity and individuality. Managing your world with warmth and focus." },
+                    { name: "King of Wands", image: "35 - King of Wands.jpg", desc: "Power and innovative ideas. Courage, stability, and being a trustworthy leader." }
                 ],
                 Cups: [
-                    { name: "Ace of Cups", image: "36 - Ace of Cups.jpg", desc: "An overflowing bowl of pure love and emotional beginning; the spirit of connection." },
-                    { name: "2 of Cups", image: "37 - Two of Cups.jpg", desc: "A meeting of whiskers; a partnership built on mutual trust and shared energy." },
-                    { name: "3 of Cups", image: "38 - Three of Cups.jpg", desc: "A social gathering of friends; sharing the milk of kindness and social joy." },
-                    { name: "4 of Cups", image: "39 - Four of Cups.jpg", desc: "Turning your nose up at the bowl; boredom and missing the gift offered by the night." },
-                    { name: "5 of Cups", image: "40 - Five of Cups.jpg", desc: "Crying over spilled milk; focusing on the loss instead of what remains in the bowl." },
-                    { name: "6 of Cups", image: "41 - Six of Cups.jpg", desc: "Memories of the kitten-hood; childhood nostalgia and the simple joys of the past." },
-                    { name: "7 of Cups", image: "42 - Seven of Cups.jpg", desc: "Too many choices in the pantry; getting lost in illusions and multiple dreams." },
-                    { name: "8 of Cups", image: "43 - Eight of Cups.jpg", desc: "Walking away from the full bowl to find something deeper for the soul's journey." },
-                    { name: "9 of Cups", image: "44 - Nine of Cups.jpg", desc: "The cat who got the cream; emotional satisfaction and deep personal contentment." },
-                    { name: "10 of Cups", image: "45 - Ten of Cups.jpg", desc: "The ultimate family bond; a home filled with harmony, love, and lasting bliss." },
-                    { name: "Page of Cups", image: "46 - Page of Cups.jpg", desc: "A sensitive soul dreaming of the deep; emotional news or a creative idea is coming." },
-                    { name: "Knight of Cups", image: "47 - Knight of Cups.jpg", desc: "The romantic wanderer following his heart's true compass toward the shore." },
-                    { name: "Queen of Cups", image: "48 - Queen of Cups.jpg", desc: "The intuitive empath who mirrors the feelings and secrets of those around her." },
-                    { name: "King of Cups", image: "49 - King of Cups.jpg", desc: "Mastering the emotional tides; staying calm even when the bathwater rises." }
+                    { name: "Ace of Cups", image: "36 - Ace of Cups.jpg", desc: "Love and new beginnings. Giving something good to another or receiving a blessing." },
+                    { name: "Two of Cups", image: "37 - Two of Cups.jpg", desc: "A partner or lover. Giving and receiving affection. Reciprocated feelings are likely." },
+                    { name: "Three of Cups", image: "38 - Three of Cups.jpg", desc: "Celebration and platonic love. Happiness found through parties and friends." },
+                    { name: "Four of Cups", image: "39 - Four of Cups.jpg", desc: "Stagnation and boredom. Feeling stuck in a routine despite having good things around you." },
+                    { name: "Five of Cups", image: "40 - Five of Cups.jpg", desc: "Loss and sadness. Like a fallen cup, it represents hopelessness and shattered dreams." },
+                    { name: "Six of Cups", image: "41 - Six of Cups.jpg", desc: "Peace and surprises. An unexpected arrival or a gift from someone in your life." },
+                    { name: "Seven of Cups", image: "42 - Seven of Cups.jpg", desc: "Confusion and many choices. Being overwhelmed by feelings or having too many offers." },
+                    { name: "Eight of Cups", image: "43 - Eight of Cups.jpg", desc: "Separation and abandonment. Walking away from disappointment toward a new path." },
+                    { name: "Nine of Cups", image: "44 - Nine of Cups.jpg", desc: "Fulfillment and hopes coming true. What you desire is about to become a reality." },
+                    { name: "Ten of Cups", image: "45 - Ten of Cups.jpg", desc: "Ultimate happiness and family. Having everything you need for emotional peace." },
+                    { name: "Page of Cups", image: "46 - Page of Cups.jpg", desc: "Fun and sociability. Meeting different people or receiving important emotional news." },
+                    { name: "Knight of Cups", image: "47 - Knight of Cups.jpg", desc: "A fighter and a dreamer. Marriage proposals or requests that require a fight to obtain." },
+                    { name: "Queen of Cups", image: "48 - Queen of Cups.jpg", desc: "Good intuition and careful consideration. Think deeply before making any decisions." },
+                    { name: "King of Cups", image: "49 - King of Cups.jpg", desc: "Intelligence and composure. Use reason rather than emotion in the face of instability." }
                 ],
                 Swords: [
-                    { name: "Ace of Swords", image: "50 - Ace of Swords.jpg", desc: "A sharp claw of clarity; a new idea that cuts through the fog of confusion." },
-                    { name: "2 of Swords", image: "51 - Two of Swords.jpg", desc: "A stalemate of whiskers; a difficult choice that requires inner peace and focus." },
-                    { name: "3 of Swords", image: "52 - Three of Swords.jpg", desc: "The sting of a betrayal; a heart-break that requires time to heal and grow back stronger." },
-                    { name: "4 of Swords", image: "53 - Four of Swords.jpg", desc: "A long nap in the sun to recover; resting the mind after a heavy mental battle." },
-                    { name: "5 of Swords", image: "54 - Five of Swords.jpg", desc: "A hollow victory where the cost of the fight was too high for the actual reward." },
-                    { name: "6 of Swords", image: "55 - Six of Swords.jpg", desc: "Rowing away to calmer waters; moving on from a difficult territory or memory." },
-                    { name: "7 of Swords", image: "56 - Seven of Swords.jpg", desc: "The sneaky thief taking what isn't theirs; deception and solo strategy." },
-                    { name: "8 of Swords", image: "57 - Eight of Swords.jpg", desc: "Trapped in a cage of your own making; the blinkers are the only real prison." },
-                    { name: "9 of Swords", image: "58 - Nine of Swords.jpg", desc: "Nightmares in the dark; anxiety that grows when the lights go out." },
-                    { name: "10 of Swords", image: "59 - Ten of Swords.jpg", desc: "The absolute end of a difficult hunt; you have hit the bottom, now only up." },
-                    { name: "Page of Swords", image: "60 - Page of Swords.jpg", desc: "A sharp-eyed observer who speaks the truth, even if it causes a hiss." },
-                    { name: "Knight of Swords", image: "61 - Knight of Swords.jpg", desc: "Charging into the argument with cold logic and a sharp, focused intellect." },
-                    { name: "Queen of Swords", image: "62 - Queen of Swords.jpg", desc: "An independent thinker who values the truth above all comfort and shadow." },
-                    { name: "King of Swords", image: "63 - King of Swords.jpg", desc: "The judge of the clowder; fair, intellectual, and strictly logical in his rule." }
+                    { name: "Ace of Swords", image: "50 - Ace of Swords.jpg", desc: "Success and the beginning of new things. Receiving a great opportunity for clarity." },
+                    { name: "Two of Swords", image: "51 - Two of Swords.jpg", desc: "Being cornered and unable to move. A difficult choice where you feel unable to decide." },
+                    { name: "Three of Swords", image: "52 - Three of Swords.jpg", desc: "Sadness, heartbreak, and disappointment. A downturn that requires mental strength." },
+                    { name: "Four of Swords", image: "53 - Four of Swords.jpg", desc: "Rest and inaction. Pressure from those around you makes deciding difficult." },
+                    { name: "Five of Swords", image: "54 - Five of Swords.jpg", desc: "Overwhelming problems and loss. Disagreements with those around you lead to defeat." },
+                    { name: "Six of Swords", image: "55 - Six of Swords.jpg", desc: "Neglecting problems until they escalate. A state of helplessness or giving in." },
+                    { name: "Seven of Swords", image: "56 - Seven of Swords.jpg", desc: "Solo strategy and overwhelmed with work. Can indicate theft or illegal activities." },
+                    { name: "Eight of Swords", image: "57 - Eight of Swords.jpg", desc: "Being constrained by circumstances. Feeling forced to remain in the dark or unable to act." },
+                    { name: "Nine of Swords", image: "58 - Nine of Swords.jpg", desc: "Stress, anxiety, and overthinking. Headaches and insomnia caused by mental pressure." },
+                    { name: "Ten of Swords", image: "59 - Ten of Swords.jpg", desc: "The absolute conclusion. Stress and mental anguish will soon come to an end." },
+                    { name: "Page of Swords", image: "60 - Page of Swords.jpg", desc: "Using intuition and self-confidence. Perseverance will help you overcome obstacles." },
+                    { name: "Knight of Swords", image: "61 - Knight of Swords.jpg", desc: "Fighting and overcoming enemies. Requires hard work and struggle for desired results." },
+                    { name: "Queen of Swords", image: "62 - Queen of Swords.jpg", desc: "Freedom and straightforwardness. Dealing with matters with firmness and no hesitation." },
+                    { name: "King of Swords", image: "63 - King of Swords.jpg", desc: "Determination and analytical thinking. Use all your mental resolve to overcome obstacles." }
                 ],
                 Pentacles: [
-                    { name: "Ace of Pentacles", image: "64 - Ace of Pentacles.jpg", desc: "A golden coin found in the tall grass; a new opportunity for material growth." },
-                    { name: "2 of Pentacles", image: "65 - Two of Pentacles.jpg", desc: "Juggling the demands of the day; finding balance in the material world." },
-                    { name: "3 of Pentacles", image: "66 - Three of Pentacles.jpg", desc: "Working together to build the ultimate cat tree; teamwork and skilled craftsmanship." },
-                    { name: "4 of Pentacles", image: "67 - Four of Pentacles.jpg", desc: "Guarding your hoard of toys too tightly; the fear of losing physical security." },
-                    { name: "5 of Pentacles", image: "68 - Five of Pentacles.jpg", desc: "Left out in the cold rain; material struggle and feeling abandoned by the clowder." },
-                    { name: "6 of Pentacles", image: "69 - Six of Pentacles.jpg", desc: "Sharing the kibble; charity and the cycle of giving and receiving abundance." },
-                    { name: "7 of Pentacles", image: "70 - Seven of Pentacles.jpg", desc: "Watching the garden grow; waiting for the harvest of your long-term efforts." },
-                    { name: "8 of Pentacles", image: "71 - Eight of Pentacles.jpg", desc: "Perfecting the skill of the hunt; dedication to your craft and steady study." },
-                    { name: "9 of Pentacles", image: "72 - Nine of Pentacles.jpg", desc: "A life of luxury and independence; enjoying the fruits of your hard labor." },
-                    { name: "10 of Pentacles", image: "73 - Ten of Pentacles.jpg", desc: "A legacy of wealth and family; a solid home that lasts for many generations." },
-                    { name: "Page of Pentacles", image: "74 - Page of Pentacles.jpg", desc: "A studious learner focused on the practical world and new physical goals." },
-                    { name: "Knight of Pentacles", image: "75 - Knight of Pentacles.jpg", desc: "The steady, reliable worker who gets the job done, paw by careful paw." },
-                    { name: "Queen of Pentacles", image: "76 - Queen of Pentacles.jpg", desc: "A grounded, practical provider who creates a comfortable den for all." },
-                    { name: "King of Pentacles", image: "77 - King of Pentacles.jpg", desc: "The master of the material realm; success, abundance, and absolute security." }
+                    { name: "Ace of Pentacles", image: "64 - Ace of Pentacles.jpg", desc: "Money and success. The start of financial stability; prepare to receive a new beginning." },
+                    { name: "Two of Pentacles", image: "65 - Two of Pentacles.jpg", desc: "Careful decision-making. Managing your choices and your money with focus." },
+                    { name: "Three of Pentacles", image: "66 - Three of Pentacles.jpg", desc: "Showcasing your abilities. Striving to build wealth through skilled work." },
+                    { name: "Four of Pentacles", image: "67 - Four of Pentacles.jpg", desc: "Stability and saving money effectively to achieve long-term physical security." },
+                    { name: "Five of Pentacles", image: "68 - Five of Pentacles.jpg", desc: "Financial problems and hardship. Feeling unable to help others or receive help." },
+                    { name: "Six of Pentacles", image: "69 - Six of Pentacles.jpg", desc: "Generosity and sharing. Cycles of giving where distribution may be unequal." },
+                    { name: "Seven of Pentacles", image: "70 - Seven of Pentacles.jpg", desc: "Investment and rewards. Seeing the return on your past efforts and patience." },
+                    { name: "Eight of Pentacles", image: "71 - Eight of Pentacles.jpg", desc: "Diligence and hard work. Building wealth through steady dedication to your craft." },
+                    { name: "Nine of Pentacles", image: "72 - Nine of Pentacles.jpg", desc: "Ample savings and financial stability. Enjoying the fruits of a good life." },
+                    { name: "Ten of Pentacles", image: "73 - Ten of Pentacles.jpg", desc: "Comfort and well-being. A legacy of inheritance, family, and abundance." },
+                    { name: "Page of Pentacles", image: "74 - Page of Pentacles.jpg", desc: "Receiving offers and opportunities, even if it is just a small beginning." },
+                    { name: "Knight of Pentacles", image: "75 - Knight of Pentacles.jpg", desc: "Meticulousness and independence. Courage to explore new practical paths." },
+                    { name: "Queen of Pentacles", image: "76 - Queen of Pentacles.jpg", desc: "Generosity and abundance. Careful consideration leads to material security." },
+                    { name: "King of Pentacles", image: "77 - King of Pentacles.jpg", desc: "Wealth and success. Achieving freedom from hardship and having plenty." }
                 ]
             }
         };
