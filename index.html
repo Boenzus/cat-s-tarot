@@ -40,6 +40,60 @@
         }
         .nav-link:hover { color: var(--gold-leaf); }
 
+        /* Search Box Styling */
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 6px 15px;
+            border-radius: 50px;
+            transition: all 0.4s;
+        }
+        .search-wrapper:focus-within {
+            border-color: var(--gold-leaf);
+            background: rgba(255,255,255,0.07);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+            outline: none;
+            width: 120px;
+            transition: width 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .search-input:focus { width: 180px; }
+        .search-results {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid var(--gold-leaf);
+            border-radius: 12px;
+            max-height: 250px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .search-results.active { display: block; }
+        .search-item {
+            padding: 10px 15px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: background 0.2s;
+        }
+        .search-item:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold-leaf); }
+
         /* Tarot Card Logic */
         .tarot-card {
             perspective: 1000px;
@@ -118,7 +172,6 @@
             width: 100%; z-index: 2;
         }
 
-        /* Hero Pill Styling */
         .hero-pill {
             background-color: var(--bone-white);
             color: var(--void-black);
@@ -146,7 +199,6 @@
         }
         .hero-btn:hover { background: white; color: var(--void-black); }
 
-        /* Modals */
         .modal {
             display: none; position: fixed; inset: 0; z-index: 100;
             background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
@@ -192,12 +244,27 @@
 
     <div class="stars-container"></div>
 
-    <nav class="fixed top-0 w-full z-50 p-8 flex justify-between items-center bg-transparent backdrop-blur-sm">
-        <div class="flex items-center gap-2">
-            <span class="text-gold-leaf text-xl">✨</span>
-            <span class="mystic-font text-2xl font-black text-bone-white tracking-widest">CAT PROPHET</span>
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-transparent backdrop-blur-sm">
+        <div class="flex items-center gap-6">
+            <!-- Logo Section -->
+            <div class="flex items-center gap-2">
+                <span class="text-gold-leaf text-xl">✨</span>
+                <span class="mystic-font text-2xl font-black text-bone-white tracking-widest hidden sm:inline">CAT PROPHET</span>
+            </div>
+
+            <!-- Search Box (Left Hand Top Decoration) -->
+            <div class="search-wrapper">
+                <span class="text-gold-leaf opacity-60">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </span>
+                <input type="text" id="cardSearch" class="search-input" placeholder="Search Meaning..." oninput="handleSearch(this.value)">
+                <div id="searchResults" class="search-results"></div>
+                <!-- Decoration -->
+                <div class="absolute -right-2 -top-3 text-[1.2rem] filter drop-shadow-[0_0_5px_gold]">🐱</div>
+            </div>
         </div>
-        <div class="hidden md:flex gap-8">
+
+        <div class="hidden lg:flex gap-8">
             <a href="#article" class="nav-link"> ARCHIVE</a>
             <a href="#reading" class="nav-link"> DIVINATION</a>
             <a href="#history" class="nav-link"> HISTORY OF CARD</a>
@@ -295,7 +362,7 @@
         <a href="mailto:your-email@example.com" class="px-12 py-5 border border-gold-leaf text-gold-leaf uppercase tracking-[0.3em] font-bold hover:bg-gold-leaf hover:text-black transition shadow-[0_0_15px_rgba(212,175,55,0.1)]">Send Email Inquiry</a>
     </section>
 
-    <!-- Modal for Spotlighting Single Card -->
+    <!-- Spotlight Modal -->
     <div id="spotlightModal" class="modal">
         <div class="max-w-4xl w-full flex flex-col md:flex-row gap-12 items-center bg-[#080808] border border-gold-leaf/40 p-12 rounded-[40px] relative shadow-[0_0_100px_rgba(0,0,0,1)]">
             <button onclick="closeSpotlight()" class="absolute top-8 right-10 text-4xl text-gold-leaf/20 hover:text-gold-leaf transition">&times;</button>
@@ -309,7 +376,7 @@
         </div>
     </div>
 
-    <!-- Final Reading Result Modal -->
+    <!-- Prophecy Result Modal -->
     <div id="readingModal" class="modal">
         <div class="bg-neutral-900 border border-gold-leaf/30 p-12 max-w-3xl w-full rounded-[40px] relative">
             <div class="text-center">
@@ -358,72 +425,60 @@
                 { name: "XXI • The World", image: "21 - The World.jpg", desc: "Success and fulfillment. A very positive card signifying a successful conclusion and a fulfilling life." }
             ],
             minor: {
-                Wands: [
-                    { name: "Ace of Wands", image: "22 - Ace of Wands.jpg", desc: "Receiving news and opportunities. The start of a brand new activity or creative spark." },
-                    { name: "Two of Wands", image: "23 - Two of Wands.jpg", desc: "Planning for the future with courage. Daring to step into an unfamiliar world." },
-                    { name: "Three of Wands", image: "24 - Three of Wands.jpg", desc: "Foresight and travel. Doing what you fear to reach unfamiliar but rewarding places." },
-                    { name: "Four of Wands", image: "25 - Four of Wands.jpg", desc: "A time of celebration, marriage, and deep fulfillment in your home life." },
-                    { name: "Five of Wands", image: "26 - Five of Wands.jpg", desc: "Competition and obstacles. Disagreements and conflicts that require effort to resolve." },
-                    { name: "Six of Wands", image: "27 - Six of Wands.jpg", desc: "Victory and success. Public celebrations of your achievements and hard work." },
-                    { name: "Seven of Wands", image: "28 - Seven of Wands.jpg", desc: "Steadfastness and self-protection. Overcoming numerous burdens to defend your position." },
-                    { name: "Eight of Wands", image: "29 - Eight of Wands.jpg", desc: "Rapid news and communication from afar. Opportunities for long-distance travel appear." },
-                    { name: "Nine of Wands", image: "30 - Nine of Wands.jpg", desc: "Strength, determination, and self-defense. Making important decisions with resilience." },
-                    { name: "Ten of Wands", image: "31 - Ten of Wands.jpg", desc: "Excessive responsibility. Carrying work that prevents you from moving toward other goals." },
-                    { name: "Page of Wands", image: "32 - Page of Wands.jpg", desc: "Enthusiasm and courage. Receiving information that sparks determination in your chosen path." },
-                    { name: "Knight of Wands", image: "33 - Knight of Wands.jpg", desc: "Self-confidence and risk-taking. Acting quickly and nimbly to achieve your aims." },
-                    { name: "Queen of Wands", image: "34 - Queen of Wands.jpg", desc: "A card of creativity and individuality. Managing your world with warmth and focus." },
-                    { name: "King of Wands", image: "35 - King of Wands.jpg", desc: "Power and innovative ideas. Courage, stability, and being a trustworthy leader." }
-                ],
-                Cups: [
-                    { name: "Ace of Cups", image: "36 - Ace of Cups.jpg", desc: "Love and new beginnings. Giving something good to another or receiving a blessing." },
-                    { name: "Two of Cups", image: "37 - Two of Cups.jpg", desc: "A partner or lover. Giving and receiving affection. Reciprocated feelings are likely." },
-                    { name: "Three of Cups", image: "38 - Three of Cups.jpg", desc: "Celebration and platonic love. Happiness found through parties and friends." },
-                    { name: "Four of Cups", image: "39 - Four of Cups.jpg", desc: "Stagnation and boredom. Feeling stuck in a routine despite having good things around you." },
-                    { name: "Five of Cups", image: "40 - Five of Cups.jpg", desc: "Loss and sadness. Like a fallen cup, it represents hopelessness and shattered dreams." },
-                    { name: "Six of Cups", image: "41 - Six of Cups.jpg", desc: "Peace and surprises. An unexpected arrival or a gift from someone in your life." },
-                    { name: "Seven of Cups", image: "42 - Seven of Cups.jpg", desc: "Confusion and many choices. Being overwhelmed by feelings or having too many offers." },
-                    { name: "Eight of Cups", image: "43 - Eight of Cups.jpg", desc: "Separation and abandonment. Walking away from disappointment toward a new path." },
-                    { name: "Nine of Cups", image: "44 - Nine of Cups.jpg", desc: "Fulfillment and hopes coming true. What you desire is about to become a reality." },
-                    { name: "Ten of Cups", image: "45 - Ten of Cups.jpg", desc: "Ultimate happiness and family. Having everything you need for emotional peace." },
-                    { name: "Page of Cups", image: "46 - Page of Cups.jpg", desc: "Fun and sociability. Meeting different people or receiving important emotional news." },
-                    { name: "Knight of Cups", image: "47 - Knight of Cups.jpg", desc: "A fighter and a dreamer. Marriage proposals or requests that require a fight to obtain." },
-                    { name: "Queen of Cups", image: "48 - Queen of Cups.jpg", desc: "Good intuition and careful consideration. Think deeply before making any decisions." },
-                    { name: "King of Cups", image: "49 - King of Cups.jpg", desc: "Intelligence and composure. Use reason rather than emotion in the face of instability." }
-                ],
-                Swords: [
-                    { name: "Ace of Swords", image: "50 - Ace of Swords.jpg", desc: "Success and the beginning of new things. Receiving a great opportunity for clarity." },
-                    { name: "Two of Swords", image: "51 - Two of Swords.jpg", desc: "Being cornered and unable to move. A difficult choice where you feel unable to decide." },
-                    { name: "Three of Swords", image: "52 - Three of Swords.jpg", desc: "Sadness, heartbreak, and disappointment. A downturn that requires mental strength." },
-                    { name: "Four of Swords", image: "53 - Four of Swords.jpg", desc: "Rest and inaction. Pressure from those around you makes deciding difficult." },
-                    { name: "Five of Swords", image: "54 - Five of Swords.jpg", desc: "Overwhelming problems and loss. Disagreements with those around you lead to defeat." },
-                    { name: "Six of Swords", image: "55 - Six of Swords.jpg", desc: "Neglecting problems until they escalate. A state of helplessness or giving in." },
-                    { name: "Seven of Swords", image: "56 - Seven of Swords.jpg", desc: "Solo strategy and overwhelmed with work. Can indicate theft or illegal activities." },
-                    { name: "Eight of Swords", image: "57 - Eight of Swords.jpg", desc: "Being constrained by circumstances. Feeling forced to remain in the dark or unable to act." },
-                    { name: "Nine of Swords", image: "58 - Nine of Swords.jpg", desc: "Stress, anxiety, and overthinking. Headaches and insomnia caused by mental pressure." },
-                    { name: "Ten of Swords", image: "59 - Ten of Swords.jpg", desc: "The absolute conclusion. Stress and mental anguish will soon come to an end." },
-                    { name: "Page of Swords", image: "60 - Page of Swords.jpg", desc: "Using intuition and self-confidence. Perseverance will help you overcome obstacles." },
-                    { name: "Knight of Swords", image: "61 - Knight of Swords.jpg", desc: "Fighting and overcoming enemies. Requires hard work and struggle for desired results." },
-                    { name: "Queen of Swords", image: "62 - Queen of Swords.jpg", desc: "Freedom and straightforwardness. Dealing with matters with firmness and no hesitation." },
-                    { name: "King of Swords", image: "63 - King of Swords.jpg", desc: "Determination and analytical thinking. Use all your mental resolve to overcome obstacles." }
-                ],
-                Pentacles: [
-                    { name: "Ace of Pentacles", image: "64 - Ace of Pentacles.jpg", desc: "Money and success. The start of financial stability; prepare to receive a new beginning." },
-                    { name: "Two of Pentacles", image: "65 - Two of Pentacles.jpg", desc: "Careful decision-making. Managing your choices and your money with focus." },
-                    { name: "Three of Pentacles", image: "66 - Three of Pentacles.jpg", desc: "Showcasing your abilities. Striving to build wealth through skilled work." },
-                    { name: "Four of Pentacles", image: "67 - Four of Pentacles.jpg", desc: "Stability and saving money effectively to achieve long-term physical security." },
-                    { name: "Five of Pentacles", image: "68 - Five of Pentacles.jpg", desc: "Financial problems and hardship. Feeling unable to help others or receive help." },
-                    { name: "Six of Pentacles", image: "69 - Six of Pentacles.jpg", desc: "Generosity and sharing. Cycles of giving where distribution may be unequal." },
-                    { name: "Seven of Pentacles", image: "70 - Seven of Pentacles.jpg", desc: "Investment and rewards. Seeing the return on your past efforts and patience." },
-                    { name: "Eight of Pentacles", image: "71 - Eight of Pentacles.jpg", desc: "Diligence and hard work. Building wealth through steady dedication to your craft." },
-                    { name: "Nine of Pentacles", image: "72 - Nine of Pentacles.jpg", desc: "Ample savings and financial stability. Enjoying the fruits of a good life." },
-                    { name: "Ten of Pentacles", image: "73 - Ten of Pentacles.jpg", desc: "Comfort and well-being. A legacy of inheritance, family, and abundance." },
-                    { name: "Page of Pentacles", image: "74 - Page of Pentacles.jpg", desc: "Receiving offers and opportunities, even if it is just a small beginning." },
-                    { name: "Knight of Pentacles", image: "75 - Knight of Pentacles.jpg", desc: "Meticulousness and independence. Courage to explore new practical paths." },
-                    { name: "Queen of Pentacles", image: "76 - Queen of Pentacles.jpg", desc: "Generosity and abundance. Careful consideration leads to material security." },
-                    { name: "King of Pentacles", image: "77 - King of Pentacles.jpg", desc: "Wealth and success. Achieving freedom from hardship and having plenty." }
-                ]
+                Wands: Array.from({length: 14}, (_, i) => {
+                    const name = `${numToWord[i]} of Wands`;
+                    const descs = ["Receiving news and opportunities. The start of a brand new activity or creative spark.", "Planning for the future with courage. Daring to step into an unfamiliar world.", "Foresight and travel. Doing what you fear to reach unfamiliar but rewarding places.", "A celebration of the safe home; domestic bliss, harmony, and structural stability.", "Competition and obstacles. Disagreements and conflicts that require effort to resolve.", "Victory and success. Public celebrations of your achievements and hard work.", "Steadfastness and self-protection. Overcoming numerous burdens to defend your position.", "Rapid news and communication from afar. Opportunities for long-distance travel appear.", "Strength, determination, and self-defense. Making important decisions with resilience.", "Excessive responsibility. Carrying work that prevents you from moving toward other goals.", "Enthusiasm and courage. Receiving information that sparks determination in your chosen path.", "Self-confidence and risk-taking. Acting quickly and nimbly to achieve your aims.", "A card of creativity and individuality. Managing your world with warmth and focus.", "Power and innovative ideas. Courage, stability, and being a trustworthy leader."];
+                    return { name, image: `${i + 22} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Wands', index: i };
+                }),
+                Cups: Array.from({length: 14}, (_, i) => {
+                    const name = `${numToWord[i]} of Cups`;
+                    const descs = ["Love and new beginnings. Giving something good to another or receiving a blessing.", "A partner or lover. Giving and receiving affection. Reciprocated feelings are likely.", "Celebration and platonic love. Happiness found through parties and friends.", "Stagnation and boredom. Feeling stuck in a routine despite having good things around you.", "Loss and sadness. Like a fallen cup, it represents hopelessness and shattered dreams.", "Peace and surprises. An unexpected arrival or a gift from someone in your life.", "Confusion and many choices. Being overwhelmed by feelings or having too many offers.", "Eight of Cups: Separation and abandonment. Walking away from disappointment toward a new path.", "Fulfillment and hopes coming true. What you desire is about to become a reality.", "Ten of Cups: Ultimate happiness and family. Having everything you need for emotional peace.", "Fun and sociability. Meeting different people or receiving important emotional news.", "A fighter and a dreamer. Marriage proposals or requests that require a fight to obtain.", "Good intuition and careful consideration. Think deeply before making any decisions.", "Intelligence and composure. Use reason rather than emotion in the face of instability."];
+                    return { name, image: `${i + 36} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Cups', index: i };
+                }),
+                Swords: Array.from({length: 14}, (_, i) => {
+                    const name = `${numToWord[i]} of Swords`;
+                    const descs = ["Success and the beginning of new things. Receiving a great opportunity for clarity.", "Being cornered and unable to move. A difficult choice where you feel unable to decide.", "Sadness, heartbreak, and disappointment. A downturn that requires mental strength.", "Rest and inaction. Pressure from those around you makes deciding difficult.", "Five of Swords: Overwhelming problems and loss. Disagreements with those around you lead to defeat.", "Neglecting problems until they escalate. A state of helplessness or giving in.", "Solo strategy and overwhelmed with work. Can indicate theft or illegal activities.", "Being constrained by circumstances. Feeling forced to remain in the dark or unable to act.", "Stress, anxiety, and overthinking. Headaches and insomnia caused by mental pressure.", "The absolute conclusion. Stress and mental anguish will soon come to an end.", "Using intuition and self-confidence. Perseverance will help you overcome obstacles.", "Fighting and overcoming enemies. Requires hard work and struggle for desired results.", "Freedom and straightforwardness. Dealing with matters with firmness and no hesitation.", "Determination and analytical thinking. Use all your mental resolve to overcome obstacles."];
+                    return { name, image: `${i + 50} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Swords', index: i };
+                }),
+                Pentacles: Array.from({length: 14}, (_, i) => {
+                    const name = `${numToWord[i]} of Pentacles`;
+                    const descs = ["Money and success. The start of financial stability; prepare to receive a new beginning.", "Careful decision-making. Managing your choices and your money with focus.", "Showcasing your abilities. Striving to build wealth through skilled work.", "Stability and saving money effectively to achieve long-term physical security.", "Financial problems and hardship. Feeling unable to help others or receive help.", "Six of Pentacles: Generosity and sharing. Cycles of giving where distribution may be unequal.", "Investment and rewards. Seeing the return on your past efforts and patience.", "Diligence and hard work. Building wealth through steady dedication to your craft.", "Nine of Pentacles: Ample savings and financial stability. Enjoying the fruits of a good life.", "Comfort and well-being. A legacy of inheritance, family, and abundance.", "Receiving offers and opportunities, even if it is just a small beginning.", "Meticulousness and independence. Courage to explore new practical paths.", "Generosity and abundance. Careful consideration leads to material security.", "Wealth and success. Achieving freedom from hardship and having plenty."];
+                    return { name, image: `${i + 64} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Pentacles', index: i };
+                })
             }
         };
+
+        // Flatten deck for search
+        const allCards = [
+            ...deckData.major.map((c, i) => ({ ...c, type: 'major', index: i, suit: '' })),
+            ...deckData.minor.Wands,
+            ...deckData.minor.Cups,
+            ...deckData.minor.Swords,
+            ...deckData.minor.Pentacles
+        ];
+
+        function handleSearch(query) {
+            const resultsBox = document.getElementById('searchResults');
+            if (!query) {
+                resultsBox.classList.remove('active');
+                return;
+            }
+            const filtered = allCards.filter(c => c.name.toLowerCase().includes(query.toLowerCase())).slice(0, 10);
+            if (filtered.length > 0) {
+                resultsBox.innerHTML = filtered.map(c => `
+                    <div class="search-item" onclick="openBySearch('${c.type}', ${c.index}, '${c.suit}')">${c.name}</div>
+                `).join('');
+                resultsBox.classList.add('active');
+            } else {
+                resultsBox.classList.remove('active');
+            }
+        }
+
+        function openBySearch(type, index, suit) {
+            document.getElementById('searchResults').classList.remove('active');
+            document.getElementById('cardSearch').value = '';
+            openSpotlightByIndex(type, index, suit);
+        }
 
         function getCardHTML(card) {
             let content = card.image ? `
@@ -452,7 +507,7 @@
                 cardEl.innerHTML = `<div class="tarot-card-inner"><div class="card-face card-back"></div><div class="card-face card-front"></div></div>`;
                 cardEl.onclick = function() {
                     if (this.classList.contains('flipped') || selectedCards.length >= 3) return;
-                    const pool = [...deckData.major, ...deckData.minor.Wands, ...deckData.minor.Cups, ...deckData.minor.Swords, ...deckData.minor.Pentacles];
+                    const pool = allCards;
                     const card = pool[Math.floor(Math.random() * pool.length)];
                     const front = this.querySelector('.card-front');
                     front.innerHTML = getCardHTML(card).replace('<div class="card-face card-front">', '').replace('</div>', '');
@@ -526,6 +581,13 @@
             document.querySelectorAll('.suit-btn').forEach(b => b.classList.toggle('bg-gold-leaf', b.innerText === suit));
             renderList(deckData.minor[suit], 'minor', suit);
         }
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-wrapper')) {
+                document.getElementById('searchResults').classList.remove('active');
+            }
+        });
 
         window.onload = initDeck;
     </script>
