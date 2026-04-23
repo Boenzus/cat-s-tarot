@@ -13,7 +13,6 @@
             --ethereal-gold: #d4af37;
             --champagne: #ece3ce;
             --bone-white: #f4f4f5;
-            --mystic-lavender: #a78bfa;
             --soft-glow: rgba(212, 175, 55, 0.15);
         }
 
@@ -64,7 +63,6 @@
         .search-wrapper:focus-within {
             border-color: var(--ethereal-gold);
             background: rgba(255,255,255,0.12);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
         }
         .search-input {
             background: transparent;
@@ -73,6 +71,7 @@
             font-size: 0.85rem;
             outline: none;
             width: 140px;
+            text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         .search-input:focus { width: 220px; }
@@ -101,12 +100,12 @@
         }
         .search-item:hover { background: rgba(212, 175, 55, 0.2); color: var(--ethereal-gold); padding-left: 24px; }
 
-        /* Tarot Card Logic - Larger size */
+        /* Tarot Card Logic - Much Larger Size */
         .tarot-card {
             perspective: 1000px;
             cursor: pointer;
-            width: 240px;
-            height: 380px;
+            width: 300px;
+            height: 480px;
             position: relative;
         }
 
@@ -126,8 +125,8 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: 12px;
-            border: 3px solid var(--ethereal-gold);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            border: 4px solid var(--ethereal-gold);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             background: #0f0f12;
             overflow: hidden;
             pointer-events: none;
@@ -138,11 +137,11 @@
             display: flex; align-items: center; justify-content: center;
             background-color: var(--spirit-surface);
             background-image: 
-                radial-gradient(var(--ethereal-gold) 1px, transparent 1px),
+                radial-gradient(var(--ethereal-gold) 2px, transparent 2px),
                 linear-gradient(45deg, rgba(212, 175, 55, 0.05) 25%, transparent 25%);
-            background-size: 15px 15px;
+            background-size: 20px 20px;
         }
-        .card-back::after { content: '🐈‍⬛'; font-size: 5rem; color: var(--ethereal-gold); opacity: 0.2; }
+        .card-back::after { content: '🐈‍⬛'; font-size: 6rem; color: var(--ethereal-gold); opacity: 0.15; }
 
         .card-front { transform: rotateY(180deg); }
 
@@ -157,16 +156,16 @@
             flex-grow: 1;
             border: 1px solid rgba(212, 175, 55, 0.2);
             display: flex; flex-direction: column;
-            padding: 8px;
+            padding: 10px;
             height: 100%;
             background: #0c0c0e;
         }
 
         .card-title-plate {
-            margin-top: auto; padding: 10px;
+            margin-top: auto; padding: 12px;
             border-top: 1px solid var(--ethereal-gold);
-            font-family: 'Cinzel', serif; font-size: 0.7rem;
-            text-transform: uppercase; letter-spacing: 1.5px;
+            font-family: 'Cinzel', serif; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 2px;
             color: var(--ethereal-gold); background: #000;
             width: 100%; z-index: 2;
             text-align: center;
@@ -187,36 +186,34 @@
         .hero-title {
             position: relative;
             z-index: 10;
-            text-shadow: 0 0 30px rgba(0,0,0,1);
+            text-shadow: 0 0 40px rgba(0,0,0,1);
             line-height: 1.1;
         }
 
-        /* Floating decorations made bigger */
         .floating-card-decor {
             position: absolute;
-            width: 160px;
-            height: 260px;
+            width: 180px;
+            height: 290px;
             border: 2px solid var(--ethereal-gold);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
-            opacity: 0.5;
-            animation: float-mystic 10s infinite ease-in-out;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            opacity: 0.4;
+            animation: float-mystic 12s infinite ease-in-out;
             pointer-events: none;
             z-index: 1;
             background: #000;
         }
 
         @keyframes float-mystic {
-            0%, 100% { transform: translateY(0) rotate(var(--rotate-start)); filter: brightness(0.8); }
-            50% { transform: translateY(-30px) rotate(var(--rotate-mid)); filter: brightness(1.1); }
+            0%, 100% { transform: translateY(0) rotate(var(--rotate-start)); }
+            50% { transform: translateY(-40px) rotate(var(--rotate-mid)); }
         }
 
-        /* Hero Card Positions */
-        .decor-1 { top: 10%; left: 8%; --rotate-start: -15deg; --rotate-mid: -8deg; animation-delay: 0s; }
-        .decor-2 { bottom: 15%; left: 12%; --rotate-start: 12deg; --rotate-mid: 20deg; animation-delay: 2s; }
-        .decor-3 { top: 15%; right: 10%; --rotate-start: 10deg; --rotate-mid: 4deg; animation-delay: 1s; }
-        .decor-4 { bottom: 12%; right: 15%; --rotate-start: -10deg; --rotate-mid: -18deg; animation-delay: 3.5s; }
+        .decor-1 { top: 8%; left: 5%; --rotate-start: -12deg; --rotate-mid: -5deg; animation-delay: 0s; }
+        .decor-2 { bottom: 10%; left: 10%; --rotate-start: 10deg; --rotate-mid: 18deg; animation-delay: 2s; }
+        .decor-3 { top: 12%; right: 8%; --rotate-start: 8deg; --rotate-mid: 2deg; animation-delay: 1s; }
+        .decor-4 { bottom: 8%; right: 12%; --rotate-start: -8deg; --rotate-mid: -15deg; animation-delay: 4s; }
 
         .hero-pill {
             background-color: var(--spirit-surface);
@@ -229,7 +226,6 @@
             margin-bottom: 2.5rem;
             font-size: 1rem;
             border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
             position: relative;
             z-index: 10;
         }
@@ -238,12 +234,13 @@
             padding: 15px 40px;
             border: 1px solid var(--bone-white);
             color: var(--bone-white);
-            font-size: 0.95rem;
-            letter-spacing: 0.1em;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
             transition: all 0.3s;
             display: inline-block;
             position: relative;
             z-index: 10;
+            text-transform: uppercase;
         }
         .hero-btn:hover { background: var(--bone-white); color: var(--spirit-bg); }
 
@@ -257,7 +254,7 @@
         .step-card:hover {
             transform: translateY(-8px);
             border-color: var(--ethereal-gold);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
         }
         .step-num {
             font-family: 'Cinzel', serif;
@@ -269,7 +266,7 @@
 
         .modal {
             display: none; position: fixed; inset: 0; z-index: 100;
-            background: rgba(12, 12, 14, 0.94); backdrop-filter: blur(15px);
+            background: rgba(12, 12, 14, 0.96); backdrop-filter: blur(20px);
             align-items: center; justify-content: center; padding: 20px;
         }
         .modal.active { display: flex; }
@@ -304,7 +301,7 @@
                     <span class="text-ethereal-gold opacity-60">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </span>
-                    <input type="text" id="cardSearch" class="search-input" placeholder="Search card name..." oninput="handleSearch(this.value)">
+                    <input type="text" id="cardSearch" class="search-input" placeholder="Search cards..." oninput="handleSearch(this.value)">
                     <div id="searchResults" class="search-results"></div>
                 </div>
                 <div class="search-decoration">🐱</div>
@@ -317,7 +314,7 @@
         </div>
 
         <div class="hidden lg:flex gap-8">
-            <a href="#article" class="nav-link">Archive</a>
+            <a href="#article" class="nav-link">Library</a>
             <a href="#guide" class="nav-link">Ritual Guide</a>
             <a href="#reading" class="nav-link">Divination</a>
             <a href="#history" class="nav-link">History</a>
@@ -326,18 +323,18 @@
     </nav>
 
     <header class="hero-container pt-20 px-4 text-center">
-        <!-- Floating Card Decorations -->
+        <!-- Enlarged Floating Card Decorations -->
         <div class="floating-card-decor decor-1">
-            <img src="00 - THE FOOL.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/160x260/000000/d4af37?text=The+Fool'">
+            <img src="00 - The Fool.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/180x290/000000/d4af37?text=The+Fool'">
         </div>
         <div class="floating-card-decor decor-2">
-            <img src="17 - THE STAR.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/160x260/000000/d4af37?text=The+Star'">
+            <img src="17 - The Star.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/180x290/000000/d4af37?text=The+Star'">
         </div>
         <div class="floating-card-decor decor-3">
-            <img src="19 - THE SUN.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/160x260/000000/d4af37?text=The+Sun'">
+            <img src="19 - The Sun.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/180x290/000000/d4af37?text=The+Sun'">
         </div>
         <div class="floating-card-decor decor-4">
-            <img src="21 - THE WORLD.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/160x260/000000/d4af37?text=The+World'">
+            <img src="21 - The World.jpg" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/180x290/000000/d4af37?text=The+World'">
         </div>
 
         <h1 class="hero-title text-6xl md:text-8xl font-black mb-6 uppercase tracking-tight text-white leading-[0.9]">
@@ -347,22 +344,22 @@
             78 Tarot Card Interpretations by Cat Prophet
         </div>
         <div>
-            <a href="#reading" class="hero-btn">Consult the Oracle</a>
+            <a href="#reading" class="hero-btn">Reveal the Oracle</a>
         </div>
     </header>
 
     <!-- Archive -->
     <section id="article" class="py-32 px-6 bg-black/30">
         <div class="max-w-5xl mx-auto text-center">
-            <h2 class="text-4xl mystic-font text-ethereal-gold mb-16 uppercase tracking-widest">Celestial Library</h2>
+            <h2 class="text-4xl mystic-font text-ethereal-gold mb-16 uppercase tracking-widest">Celestial Archive</h2>
             <div class="grid md:grid-cols-2 gap-10">
                 <div onclick="showCategory('major')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-ethereal-gold hover:shadow-2xl transition group">
                     <h3 class="text-ethereal-gold font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Major Arcana</h3>
-                    <p class="text-xs opacity-60">22 Core Archetypes (Secrets of the Universe)</p>
+                    <p class="text-xs opacity-60">The 22 Primary Archetypes (Soul Path)</p>
                 </div>
                 <div onclick="showCategory('minor')" class="p-10 bg-white/5 border border-white/10 rounded-3xl cursor-pointer hover:border-ethereal-gold hover:shadow-2xl transition group">
                     <h3 class="text-gold-leaf font-bold mb-2 uppercase text-2xl group-hover:scale-105 transition-transform">Minor Arcana</h3>
-                    <p class="text-xs opacity-60">56 Detailed Rituals (Daily Life stories)</p>
+                    <p class="text-xs opacity-60">The 56 Daily Rituals (Practical Life)</p>
                 </div>
             </div>
 
@@ -386,7 +383,7 @@
     <section id="guide" class="py-32 px-6">
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-4xl mystic-font text-ethereal-gold mb-4 uppercase tracking-widest">The Sacred Ritual</h2>
-            <p class="serif-font italic text-xl opacity-60 mb-16">A beginner's path to the three-card spread</p>
+            <p class="serif-font italic text-xl opacity-60 mb-16">A beginner's guide to the three-card spread</p>
             
             <div class="grid md:grid-cols-3 gap-8 text-left">
                 <div class="step-card">
@@ -401,14 +398,13 @@
                 </div>
                 <div class="step-card">
                     <div class="step-num">03</div>
-                    <h3 class="font-bold uppercase tracking-widest mb-4">Trinity Reveal</h3>
-                    <p class="text-sm leading-relaxed opacity-70">Divide the deck into three stacks. Open the top card of each. From left to right, they represent your **Past**, **Present**, and **Future Outcome**.</p>
+                    <h3 class="font-bold uppercase tracking-widest mb-4">The Triple Reveal</h3>
+                    <p class="text-sm leading-relaxed opacity-70">Divide the deck into three stacks. Reveal the top card of each. From left to right, they represent your **Past**, **Present**, and **Future Outcome**.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- History -->
     <section id="history" class="py-32 px-6 bg-black/20">
         <div class="max-w-5xl mx-auto text-center">
             <h2 class="text-3xl mystic-font text-ethereal-gold mb-12 uppercase tracking-[0.3em]">History of the Card</h2>
@@ -429,41 +425,41 @@
         <div class="max-w-6xl mx-auto text-center">
             <h2 class="text-5xl mystic-font text-white mb-6 uppercase tracking-widest text-center">Open Three Cards</h2>
             <p class="text-ethereal-gold italic mb-20 text-xl serif-font text-center">Focus your energy and reveal your vibration</p>
-            <div id="deck-container" class="flex flex-wrap justify-center gap-12"></div>
+            <div id="deck-container" class="flex flex-wrap justify-center gap-12 min-h-[500px]"></div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-32 px-6 bg-black/20 text-center">
-        <h2 class="text-3xl mystic-font text-ethereal-gold mb-8 uppercase tracking-widest">Connect with Cat Prophet</h2>
+        <h2 class="text-3xl mystic-font text-ethereal-gold mb-8 uppercase tracking-widest">Contact Cat Prophet</h2>
         <div class="h-px w-16 bg-ethereal-gold mx-auto mb-8"></div>
         <p class="text-white/70 mb-10 leading-relaxed max-w-2xl mx-auto">If you have questions about the cards or wish to discuss the artistic journey, please reach out via the link below.</p>
-        <a href="mailto:your-email@example.com" class="px-12 py-5 border border-ethereal-gold text-ethereal-gold uppercase tracking-[0.3em] font-bold hover:bg-ethereal-gold hover:text-white transition shadow-lg">Send Email Inquiry</a>
+        <a href="mailto:your-email@example.com" class="px-12 py-5 border border-ethereal-gold text-ethereal-gold uppercase tracking-[0.3em] font-bold hover:bg-ethereal-gold hover:text-white transition shadow-lg">Send Inquiry</a>
     </section>
 
     <!-- Spotlight Modal -->
     <div id="spotlightModal" class="modal">
-        <div class="max-w-4xl w-full flex flex-col md:flex-row gap-12 items-center bg-[#121214] border border-ethereal-gold/40 p-12 rounded-[40px] relative shadow-2xl">
+        <div class="max-w-5xl w-full flex flex-col md:flex-row gap-12 items-center bg-[#121214] border border-ethereal-gold/40 p-12 rounded-[40px] relative shadow-2xl">
             <button onclick="closeSpotlight()" class="absolute top-8 right-10 text-4xl text-white/20 hover:text-ethereal-gold transition">&times;</button>
-            <div id="spotlight-render" class="w-[280px] h-[440px] flex-shrink-0"></div>
+            <div id="spotlight-render" class="w-[300px] h-[480px] flex-shrink-0"></div>
             <div class="flex-grow text-left space-y-6">
                 <h2 id="spotlight-title" class="text-4xl md:text-5xl mystic-font text-white uppercase tracking-tighter">Card Name</h2>
                 <div class="h-px w-24 bg-ethereal-gold"></div>
                 <p id="spotlight-desc" class="text-xl text-white/80 leading-relaxed serif-font italic"></p>
-                <button onclick="closeSpotlight()" class="px-8 py-3 border border-gold-leaf text-gold-leaf text-xs uppercase tracking-widest hover:bg-gold-leaf hover:text-black transition uppercase">Return to Library</button>
+                <button onclick="closeSpotlight()" class="px-8 py-3 border border-gold-leaf text-gold-leaf text-xs uppercase tracking-widest hover:bg-gold-leaf hover:text-black transition">Return to Library</button>
             </div>
         </div>
     </div>
 
-    <!-- Final Reading Result Modal -->
+    <!-- Final Reading Modal -->
     <div id="readingModal" class="modal">
         <div class="bg-[#121214] border border-ethereal-gold/30 p-12 max-w-3xl w-full rounded-[40px] relative shadow-2xl">
             <div class="text-center">
-                <h3 class="text-4xl mystic-font text-ethereal-gold mb-4 tracking-widest uppercase">The Prophecy</h3>
+                <h3 class="text-4xl mystic-font text-ethereal-gold mb-4 tracking-widest">The Prophecy</h3>
                 <div id="modal-content" class="space-y-6 text-left max-h-[45vh] overflow-y-auto px-4 mt-8 text-white"></div>
                 <div class="warning-tag">
                     <p class="font-black mb-2 uppercase tracking-widest text-xs">⚠️ Sacred Warning</p>
-                    <p class="italic text-sm">Destiny requires time to manifest. Please do not open cards for the same question for at least 3 months.</p>
+                    <p class="italic text-sm">Destiny requires time to manifest. Please do not consult the cards for the same question for at least 3 months.</p>
                 </div>
                 <button onclick="closeModal()" class="mt-10 px-12 py-4 bg-ethereal-gold text-white font-black uppercase tracking-widest text-xs rounded-full hover:scale-105 transition">I Acknowledge</button>
             </div>
@@ -472,7 +468,7 @@
 
     <footer class="py-24 text-center border-t border-white/5 opacity-60">
         <p class="text-ethereal-gold uppercase tracking-[0.5em] text-[10px] mb-2">&copy; THE ORACLE'S VEIL | CAT PROPHET</p>
-        <p class="text-[9px] tracking-widest opacity-70 uppercase italic text-bone-white">Inspired by the archetypes of Pamela Colman Smith</p>
+        <p class="text-[9px] tracking-widest opacity-70 uppercase italic text-bone-white">Inspired by the timeless archetypes of Pamela Colman Smith</p>
     </footer>
 
     <script>
@@ -482,48 +478,48 @@
 
         const deckData = {
             major: [
-                { name: "0 • THE FOOL", image: "00 - THE FOOL.jpg", desc: "Starting something new and taking risks. Direct indication of a person who knows they are taking a risk but wants to try. Pure spirit of adventure." },
-                { name: "I • THE MAGICIAN", image: "01 - THE MAGICIAN.jpg", desc: "Ambition and action. You have the inherent skill to manifest results through your own focused will and intelligence." },
-                { name: "II • HIGH PRIESTESS", image: "02 - HIGH PRIESTESS.jpg", desc: "Intelligence and knowledge. She keeps her abilities hidden, speaking out only when necessary. Trust the unrevealed truth." },
-                { name: "III • THE EMPRESS", image: "03 - THE EMPRESS.jpg", desc: "Motherhood, happiness, and wealth. These are fertile opportunities that can be seized right now." },
-                { name: "IV • THE EMPEROR", image: "04 - THE EMPEROR.jpg", desc: "Authority and stability. Often bossy and unwilling to yield. A situation requiring compliance with order or established power." },
-                { name: "V • THE HIEROPHANT", image: "05 - THE HIEROPHANT.jpg", desc: "Effective performance and traditional knowledge. Represents a unified family or a knowledgeable mentor in your life path." },
-                { name: "VI • THE LOVERS", image: "06 - THE LOVERS.jpg", desc: "Passion and harmony. Represents recognized love or a difficult decision that must be made from the heart." },
-                { name: "VII • THE CHARIOT", image: "07 - THE CHARIOT.jpg", desc: "Steadfastness and diligence. Signifies achieving success through sheer determination and control over opposing forces." },
-                { name: "VIII • STRENGTH", image: "08 - STRENGTH.jpg", desc: "Highest authority and inner power. Like a powerful motherboard, nothing can harm her; she controls the systems of the night." },
-                { name: "IX • THE HERMIT", image: "09 - THE HERMIT.jpg", desc: "Solitude and introspection. Apply this time for analytical thinking and avoid hasty or decisive actions." },
-                { name: "X • WHEEL OF FORTUNE", image: "10 - WHEEL OF FORTUNE.jpg", desc: "Fate and change. Preparation is not necessary, as cycles of luck will turn as they will beyond human control." },
-                { name: "XI • JUSTICE", image: "11 - JUSTICE.jpg", desc: "Decision-making, equality, and law. You will receive justice and balance will be restored in your matters." },
-                { name: "XII • THE HANGED MAN", image: "12 - THE HANGED MAN.jpg", desc: "Waiting and sacrifice. You may be unable to make a decision, requiring you to remain still or sacrifice personal happiness for now." },
-                { name: "XIII • DEATH", image: "13 - DEATH.jpg", desc: "Transition and rebirth. Turning bad things into good; serious situations will gradually improve through transformation." },
-                { name: "XIV • TEMPERANCE", image: "14 - TEMPERANCE.jpg", desc: "Negotiation, blending, and balance. Create harmony in your life by compromising to get what you truly want." },
-                { name: "XV • THE DEVIL", image: "15 - THE DEVIL.jpg", desc: "Control, bondage, and hopelessness. Be careful of being unwillingly bound or losing your willpower to external forces." },
-                { name: "XVI • THE TOWER", image: "16 - THE TOWER.jpg", desc: "Sudden change and conflict. Prepare for unexpected events or unforeseen news that may cause major shifts in your world." },
-                { name: "XVII • THE STAR", image: "17 - THE STAR.jpg", desc: "Hope and peace. A glimmer of light appearing even in the darkest times. Maintain a calm and composed demeanor." },
-                { name: "XVIII • THE MOON", image: "18 - THE MOON.jpg", desc: "Fear and illusion. Consider carefully whether your fears are real or merely illusions creeping in unexpectedly." },
-                { name: "XIX • THE SUN", image: "19 - THE SUN.jpg", desc: "Growth, light, and vitality. Passion and vibrancy lead to a positive surprise coming your way soon." },
-                { name: "XX • JUDGEMENT", image: "20 - JUDGEMENT.jpg", desc: "Decision-making and a second chance. Let go of the past to make room for new important choices." },
-                { name: "XXI • THE WORLD", image: "21 - THE WORLD.jpg", desc: "Success and fulfillment. A very positive card signifying a successful conclusion and a fulfilling life." }
+                { name: "0 • The Fool", image: "00 - The Fool.jpg", desc: "New beginnings, taking risks. Indicates a person who knows they are taking a risk but wants to try. Pure adventure spirit." },
+                { name: "I • The Magician", image: "01 - The Magician.jpg", desc: "Ambition and action. You have the inherent skill to manifest results through focused will and ability." },
+                { name: "II • High Priestess", image: "02 - The High Priestess.jpg", desc: "Intelligence and knowledge. A talented person who keeps their abilities hidden, only speaking when necessary. Trust the unrevealed truth." },
+                { name: "III • The Empress", image: "03 - The Empress.jpg", desc: "Fertility, motherhood, happiness, and comfort. Wealth or opportunities that can be seized right now." },
+                { name: "IV • The Emperor", image: "04 - The Emperor.jpg", desc: "Power and stability. Often bossy or unwilling to yield. A situation requiring compliance with order or established authority." },
+                { name: "V • The Hierophant", image: "05 - The Hierophant.jpg", desc: "Knowledge and tradition. Represents a unified family or a knowledgeable mentor on your life path." },
+                { name: "VI • The Lovers", image: "06 - The Lovers.jpg", desc: "Love and passion. Encountering a soulmate or making a difficult decision with the heart." },
+                { name: "VII • The Chariot", image: "07 - The Chariot.jpg", desc: "Determination and diligence. Success achieved through intense focus and being stronger than the obstacles." },
+                { name: "VIII • Strength", image: "08 - Strength.jpg", desc: "Inner strength and management. Represents the highest authority; nothing can harm you when you control the systems of your world." },
+                { name: "IX • The Hermit", image: "09 - The Hermit.jpg", desc: "Solitude and introspection. Healing the mind through isolation. Spend time analyzing things; do not be impatient." },
+                { name: "X • Wheel of Fortune", image: "10 - Wheel of Fortune.jpg", desc: "Fate and change. Preparation is not necessary as unexpected shifts will occur according to the cycle of life." },
+                { name: "XI • Justice", image: "11 - Justice.jpg", desc: "Decision-making, equality, and law. Justice will be received; a decision leading to balance will be made." },
+                { name: "XII • The Hanged Man", image: "12 - The Hanged Man.jpg", desc: "Waiting and sacrifice. A situation where you cannot make a decision; you must remain still or sacrifice personal happiness." },
+                { name: "XIII • Death", image: "13 - Death.jpg", desc: "Change and rebirth. Turning bad things into good; serious situations will gradually improve through transition." },
+                { name: "XIV • Temperance", image: "14 - Temperance.jpg", desc: "Negotiation, blending, and balance. Create harmony by compromising to get what you truly desire." },
+                { name: "XV • The Devil", image: "15 - The Devil.jpg", desc: "Control, bondage, and hopelessness. Beware of being bound by external forces or losing willpower." },
+                { name: "XVI • The Tower", image: "16 - The Tower.jpg", desc: "Sudden change and conflict. Prepare for the unexpected; a major breakthrough or disagreement with those around you." },
+                { name: "XVII • The Star", image: "17 - The Star.jpg", desc: "Hope and peace. Even in the darkest sky, a star of hope appears. Maintain your calm and composure." },
+                { name: "XVIII • The Moon", image: "18 - The Moon.jpg", desc: "Fear and illusion. Fear may creep in unexpectedly; consider carefully if the threat is real or just a shadow." },
+                { name: "XIX • The Sun", image: "19 - The Sun.jpg", desc: "Growth, light, and vitality. Success and vibrant energy. A positive surprise is coming your way soon." },
+                { name: "XX • Judgement", image: "20 - Judgement.jpg", desc: "Decision-making and second chances. A vital choice must be made; let go of the past to embrace the new." },
+                { name: "XXI • The World", image: "21 - The World.jpg", desc: "Success and fulfillment. A positive card signifying a successful conclusion and a deeply satisfying life." }
             ],
             minor: {
                 Wands: Array.from({length: 14}, (_, i) => {
                     const name = `${numToWord[i]} of Wands`;
-                    const descs = ["Receiving news or starting a new activity. A spark of creativity.", "Planning for the future with courage. Daring to step into an unfamiliar world.", "Travelling to unfamiliar places or looking far ahead. Doing what you fear.", "Celebration, marriage, and deep fulfillment in home life.", "Competition with many people. Disagreements and obstacles requiring effort.", "Victory, success, and public celebration of your hard work.", "Steadfastness and protection. Overcoming heavy burdens to defend your position.", "Swift news or communication from afar. Opportunities for long-distance travel.", "Strength, resilience, and self-defense. Making important choices.", "Excessive responsibility or work preventing you from moving forward.", "Enthusiasm and courage. Receiving news that sparks determination.", "Self-confidence and risk-taking. Acting quickly to achieve aims.", "Creativity and individuality. Managing your world with warmth.", "Power and innovation. Courage, stability, and trustworthy leadership."];
+                    const descs = ["Receiving news or starting a new activity.", "Planning the future with courage.", "Moving to unfamiliar places or foresight.", "Celebration, marriage, or fulfillment.", "Competition with many people or disagreements.", "Victory and celebration of success.", "Steadfastness and protecting oneself.", "Swift news or long-distance travel.", "Strength, determination, and self-defense.", "Excessive responsibility preventing movement.", "Receiving news with enthusiasm and courage.", "Confidence, risk-taking, and acting quickly.", "Creativity and individuality.", "Power, innovation, and stability."];
                     return { name, image: `${i + 22} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Wands', index: i };
                 }),
                 Cups: Array.from({length: 14}, (_, i) => {
                     const name = `${numToWord[i]} of Cups`;
-                    const descs = ["Love and new beginnings. Giving or receiving a blessing.", "Partnership and affection. Reciprocated feelings are likely.", "Celebration and platonic love. Happiness with friends.", "Stagnation and boredom. Routine despite good things around you.", "Loss and sadness. Shattered dreams and hopelessness.", "Peace and simple joys. Unexpected gift or arrival from the past.", "Confusion and choices. Overwhelmed by many offers or feelings.", "Separation and walking away from disappointment for a new path.", "Fulfillment and hopes coming true. What you desire is arriving; just wait.", "Ultimate happiness and family peace. Having all you need.", "Fun and sociability. Meeting new people or receiving emotional news.", "Proposal or request that requires a struggle to obtain.", "Intuition and careful consideration. Deep thought before deciding.", "Composure and intelligence. Using reason over emotion during instability."];
+                    const descs = ["Love and new emotional beginnings.", "Reciprocated feelings or partnerships.", "Celebration and platonic love.", "Stagnation, routine, and boredom.", "Loss, sadness, and shattered dreams.", "Peace, surprises, or unexpected visitors.", "Confusion and having too many choices.", "Separation or walking away for growth.", "Fulfillment and hopes coming true. Just wait.", "Ultimate happiness and family peace.", "Social fun and emotional news.", "Proposal or fighting for desires.", "Intuition and careful consideration.", "Intelligence, composure, and emotional control."];
                     return { name, image: `${i + 36} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Cups', index: i };
                 }),
                 Swords: Array.from({length: 14}, (_, i) => {
                     const name = `${numToWord[i]} of Swords`;
-                    const descs = ["Success and clarity. Receiving a great opportunity.", "Stalemate and difficult choice. Unable to move or decide.", "Heartbreak, sadness, and disappointment.", "Rest and inaction. Pressure makes decision-making difficult.", "Overwhelming problems and loss. Disagreements leading to defeat.", "Neglecting problems until they escalate. State of giving in.", "Solo strategy or deception. Overwhelmed with work.", "Constraint and closed vision. Forced to remain in the dark.", "Anxiety, stress, and overthinking. Insomnia and mental pressure.", "The absolute conclusion. Stress and anguish will soon end.", "Perseverance and intuition. Using confidence to beat obstacles.", "Fighting to overcome enemies. Hard work for desired results.", "Freedom and directness. Dealing with matters firmly.", "Determination and analytical thinking to pass obstacles."];
+                    const descs = ["Success and new mental beginnings.", "Being cornered or unable to decide.", "Heartbreak, sadness, and disappointment.", "Rest and inaction due to pressure.", "Overwhelming problems and loss.", "Neglecting problems until they escalate.", "Theft or being overwhelmed with work.", "Forced constraints or being kept in the dark.", "Anxiety, stress, and overthinking.", "Stress and headaches will soon end.", "Perseverance and intuition in choices.", "Fighting to achieve desired results.", "Freedom, directness, and decisiveness.", "Determination and analytical resolve."];
                     return { name, image: `${i + 50} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Swords', index: i };
                 }),
                 Pentacles: Array.from({length: 14}, (_, i) => {
                     const name = `${numToWord[i]} of Pentacles`;
-                    const descs = ["Financial success and new beginnings. Stability is starting.", "Careful decision-making. Managing money and choices with focus.", "Teamwork and showing abilities. Building wealth through skill.", "Stability and saving. Achieving long-term physical security.", "Hardship and financial problems. Feeling abandoned or lacking help.", "Generosity and sharing. Cycles of giving and receiving.", "Rewards for investment. Seeing the return of past efforts.", "Diligence and hard work. Building wealth through dedication.", "Independence and wealth. Enjoying the fruits of a good life.", "Legacy and comfort. Family inheritance and abundance.", "Practical opportunities. Receiving offers for new ventures.", "Reliability and independence. Courage to find new practical paths.", "Generosity and abundance. Consideration leading to security.", "Wealth and success. Achieving freedom from all hardship."];
+                    const descs = ["Money, success, and financial stability.", "Careful decisions and managing money.", "Showcasing abilities to build wealth.", "Stability and saving money effectively.", "Financial problems or lack of help.", "Generosity and unequal sharing.", "Investment rewards and return on work.", "Diligence and dedication to build wealth.", "Wealth, stability, and ample savings.", "Legacy, marriage, and family abundance.", "Opportunities for new practical beginnings.", "Attentiveness and courage to explore.", "Generosity, abundance, and consideration.", "Wealth, success, and freedom from hardship."];
                     return { name, image: `${i + 64} - ${name}.jpg`, desc: descs[i], type: 'minor', suit: 'Pentacles', index: i };
                 })
             }
@@ -556,7 +552,7 @@
         function getCardHTML(card) {
             return `<div class="card-face card-front">
                 <div class="card-border-inner">
-                    <img src="${card.image || ''}" class="card-image-full" onerror="this.outerHTML='<div class=\'cat-placeholder\'>✨</div>'">
+                    <img src="${card.image || ''}" class="card-image-full" onerror="this.src='https://via.placeholder.com/300x480/000000/d4af37?text=${card.name.split(' ').join('+')}';">
                 </div>
                 <div class="card-title-plate">${card.name}</div>
             </div>`;
@@ -565,7 +561,8 @@
         function initDeck() {
             const container = document.getElementById('deck-container');
             if(!container) return;
-            container.innerHTML = ''; selectedCards = [];
+            container.innerHTML = ''; 
+            selectedCards = [];
             for(let i=0; i<3; i++) {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'tarot-card';
@@ -600,7 +597,7 @@
             document.getElementById('spotlight-title').innerText = card.name;
             document.getElementById('spotlight-desc').innerText = card.desc;
             document.getElementById('spotlight-render').innerHTML = `
-                <div class="tarot-card flipped cursor-default mx-auto" style="width:240px;height:380px">
+                <div class="tarot-card flipped cursor-default mx-auto">
                     <div class="tarot-card-inner">
                         <div class="card-face card-back"></div>
                         ${getCardHTML(card)}
@@ -643,7 +640,8 @@
             if (!e.target.closest('.search-container')) document.getElementById('searchResults').classList.remove('active');
         });
 
-        window.onload = initDeck;
+        // Initialize deck when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initDeck);
     </script>
 </body>
 </html>
